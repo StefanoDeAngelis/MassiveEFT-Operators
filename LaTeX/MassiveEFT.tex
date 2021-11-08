@@ -78,18 +78,15 @@ Once $n_g$, $n_f$ and $n_s$ are fixed, we take into account that every state can
 
 \section{The massless basis}
 
-In this section we are going to extend the on-shell methods to the classification of effective interactions \cite{Shadmi:2018xan,Falkowski:2019zdo,Durieux:2020gip} in the SMEFT \cite{Ma:2019gtx,Aoude:2019tzn,Durieux:2019eor,Durieux:2019siw}, corresponding in the Lagrangian formalism to insertions of marginal operators \cite{Grzadkowski:2010es,Lehman:2014jma,Murphy:2020rsh,Liao:2020jmn}. First we are going to classify all the independent kinematic structures in a generic theory in four dimensions introducing a new algorithm in terms of graphs and then we will consider the specific case of the Standard Model, combining these with the colour structures.
+In this section, we am going to present the graph-based method to find a basis of polynomial kinematic structures in a generic massless theory in four dimensions which are Poincaré invariant.
+\todo{explain Poicaré invariance}
 
-\subsection{Kinematic structures from spinor helicity variables}\label{sec:kinematics}
-%
-A simple way of finding all the possible structures is to identify them with an oriented multigraph, where each vertex is associated to a particle, and the edges correspond to angle (red) or square (blue) ${\rm SL}(2,\mathbb{C})$ invariants. The orientation of the edges then keeps track of the ordering of particles in the brackets and thus provides potential minus signs.
+\subsection{Kinematic structures from spinor helicity variables}
+\label{sec:kinematics}
 
-The valence of each vertex is given by two natural numbers $v^{i}=(v^i_a,v^{i}_s)$ such that $v^i_s-v^i_a =2 h_i$ is the helicity of the $i^{\rm th}$ particle (see, for example, Figure~\ref{fig:2graphexample}). Finally, for reasons which will become clear in the next section, we consider a circular embedding for our graphs, in other words we take all the nodes to be  ordered points on a circle.
-This method has proven to be a computationally efficient way of finding a basis of independent structures up to Schouten and momentum conservation identities. %In particular, the former act separately on angle and square invariants, while the latter mixes the two structures. We are going to show how to deal with this identities in terms of above mentioned multigraphs.
-Notice that the former act separately on angle and square invariants, while the latter mixes the two structures. In the following sections we are going to show how to deal with these identities in terms of above mentioned multigraphs.
+A simple way of finding all the possible Lorentz-invariant structures in four-dimensions is to identify them with an oriented graph with two kind of edges, where each vertex is associated to a particle, and the edges correspond to angle (red) or square (blue) ${\rm SL}(2,\mathbb{C})$ invariants, as shown in Figure~\ref{fig:2graphexample}. The orientation of the edges then keeps track of the ordering of particles in the spinor brackets and thus provides potential minus signs.
 
-\begin{figure}[!ht]
-    \label{fig::multigraphEx}
+\begin{figure}[t]
 	    \begin{center}
 		    \begin{tikzpicture}[scale=2.5,>=Stealth]
 		    
@@ -155,19 +152,28 @@ Notice that the former act separately on angle and square invariants, while the 
 	\label{fig:2graphexample}
 \end{figure}
 
+The valence of each vertex is given by two natural numbers $v^{i}=(v^i_a,v^{i}_s)$ such that $v^i_s-v^i_a =2 h_i$ is the helicity of the $i^{\rm th}$ particle. In general we consider polynomial structures with a arbitrary number of momentum insertions $n_\partial \geq 0$. Each momentum in the structures can be assigned to any of the $n$ states, which increases the valence of the corresponding vertex by $(1,1)$. The number of momenta associated to each vertex is then $\min\{v^i_a,v^i_s\}$. Moreover, for reasons which will become clear in the next section, it is crucial considering circular embedding for our graphs, \textit{i.e.} we take all the vertices to be  ordered points on a circle. 
+
+To each graph we can associate a couple of $n\times n$ adjacency matrices $(\mathbf{A},\mathbf{S})$, whose elements are non-negative integer numbers: each element $A_{i j}\geq 0$ (or $S_{i j}\geq 0$) indicates the number of red (or blue) edges going from the $i^{\rm th}$-vertex to the $j^{\rm th}$-vertex. Finally there is a trivial map $\mathbb{M}$ from the adjacency matrices to the corresponding polynomial spinor structure:
+\begin{equation}
+	\mathbb{M}(\mathbf{A},\mathbf{S}) = \prod_{i,j=1}^n\, \agl{i}{j}^{A_{i j}}\, \sqr{i}{j}^{S_{i j}}\ .
+\end{equation}
+This map is in general non-invertible, because spinor brackets are antisymmetric ($\agl{i}{j}=-\agl{j}{i}$, $\sqr{i}{j} = - \sqr{j}{i}$). Then we restrict without lost of generality to upper-half triangular adjacency matrices ($A_{i j} = 0$ and $S_{i j}= 0$ if $i \geq j$), in order to make che correspondence between polynomial structures and graphs one-to-one.
+
+At this point, we are interested in finding a basis of structures which are independent up to Schouten identities and momentum conservation. Notice that the former act separately on angle and square invariants, while the latter mixes the two structures. In the following sections we are going to show how to deal with these identities in terms of above mentioned graphs.
+
 \subsubsection{Schouten identities}
 
 Schouten identities for angle and square brackets read
 \begin{equation}\label{eq:Schouten}
 \begin{aligned}
-    \agl{1}{2}\agl{3}{4} + \agl{2}{3}\agl{1}{4} + \agl{3}{1}\agl{2}{4} &= 0\ ,\\
-    \sqr{1}{2}\sqr{3}{4} + \sqr{2}{3}\sqr{1}{4} + \sqr{3}{1}\sqr{2}{4} &= 0\ .
+    \agl{i_1}{i_2}\agl{i_3}{i_4} + \agl{i_2}{i_3}\agl{i_1}{i_4} + \agl{i_3}{i_1}\agl{i_2}{i_4} &= 0\ ,\\
+    \sqr{i_1}{i_2}\sqr{i_3}{i_4} + \sqr{i_2}{i_3}\sqr{i_1}{i_4} + \sqr{i_3}{i_1}\sqr{i_2}{i_4} &= 0\ .
 \end{aligned}
 \end{equation}
+Thinking of the kinematic structures in terms of graphs, specifically using the already mentioned circular embedding, if $(i_1,i_2,i_3,i_4)$ are arranged in cyclic order we can notice that the $\agl{i_1}{i_3}\agl{i_2}{i_4}$ correspond to intersecting edges in the graph, while $\agl{i_1}{i_2}\agl{i_3}{i_4}$ and $\agl{i_2}{i_3}\agl{i_1}{i_4}$ are not (and the same is true for the square brackets). This is illustrated in Figure~\ref{fig:Schouten}. In a generic graph, this relation be applied recursively a finite number of times until we end up with a sum over graphs which do not have any crossing. It is then clear that a basis of kinematic structures which are independent under Schouten identities can be obtained classifying the planar graphs associated to a polynomial kinematic structure.
 
-Thinking of the kinematic structures in terms of graphs, specifically using the already mentioned circular embedding, one way of implementing \eqref{eq:Schouten} is by untying crossing edges as shown in Figure \ref{fig::Schouten}. In a generic graph, this can be applied recursively until, after a finite number of steps, we end up with graphs which do not have any crossing. It is then clear that a basis of kinematic structures which are independent under Schouten identities can be obtained by building a basis of planar graphs only.
-
-\begin{figure}[!ht]
+\begin{figure}[t]
     \begin{center}
 		    \begin{tikzpicture}[scale=1.8,>=Stealth]
 		    
@@ -222,15 +228,18 @@ Thinking of the kinematic structures in terms of graphs, specifically using the 
 	
 		    \end{tikzpicture}
 		\end{center}
-	\caption{Schouten identities are equivalent to untying crossings for both the two graphs in the multigraph: $\textcolor{red}{\agl{1}{3}\agl{2}{4}} = \textcolor{red}{\agl{1}{4}\agl{2}{3}} + \textcolor{red}{\agl{1}{2}\agl{3}{4}}$.}
-    \label{fig::Schouten}
+	\caption{Graphical representation of the relation $\textcolor{red}{\agl{1}{3}\agl{2}{4}} = \textcolor{red}{\agl{1}{4}\agl{2}{3}} + \textcolor{red}{\agl{1}{2}\agl{3}{4}}$. Then Schouten identities are equivalent to untying crossings for both the two kinds of edges (red and blue) in the graph.}
+    \label{fig:Schouten}
 \end{figure}
 
-\todo{the adjacency matrix, planarity conditions and schouten and antissymmetry of the brackets}
+The planarity of the graph translates into a sharp condition on the adjacency matrices associated to it:
+\begin{equation}
+	\sum A
+\end{equation}
+
+\todo{the adjacency matrix, planarity conditions and schouten and algorithm to untie crossings}
 
 \subsubsection{Momentum conservation}
-
-In general, we consider an $n$-point amplitude with $n_\partial > 0$. Each momentum in the amplitude can be assigned to any of the $n$ particles, which increases the valence of the corresponding vertex by $(1,1)$. The number of momenta associated to each vertex is then $\min\{v^i_a,v^i_s\}$.
 
 We can take into account most of the relations coming from momentum conservation just by excluding the momentum of the $n^{\rm th}$-particle from the previous assignment. Then the $n^{\rm th}$-vertex will have valence $(\frac{|h_n|+h_n}{2},\frac{|h_n|-h_n}{2})$.
 
@@ -259,7 +268,7 @@ Some observations are in order:
 \end{itemize}
 This algorithm classifies efficiently all the ${\rm SL}(2,\mathbb{C})$-invariant structures which are polynomial in the spinor variables with fixed mass dimension and helicity configuration, associated to each $(n_{g^-},n_{g^+},n_{f^-},n_{f^+},n_s)$. It also provides a very simple way of writing the dependent structures as linear combinations of the independent ones. We also notice that this algorithm an be applied also beyond gauge theories. Furthermore, the generalisation of this algorithm to massive spinors is possible and it will be discussed in future works.
 
-\section{The massive basis}
+\section{The massive contact-term basis}
 
 The classification of independent structures in massive theories involves more technical considerations, but it is doable from a generalisation presented above for fully massless theories. The sources of such additional complications are two:
 \begin{enumerate}
@@ -285,7 +294,14 @@ With respect to the massless case, we have additional Schouten identities to tak
 	\end{enumerate}
 	Then we ﬁnd a proliferation of vertices, each particle is associated to a vertex carrying both helicity weight and momenta for massless particles and only spin weight for massive one. For each insertion of massive momenta we need to add a vertex next to the spin vertex of the corresponding particle.
 	\item \textbf{Momentum conservation} is now taken identically with respect to the massless case:
-	
+	\begin{align}
+		p_n &= - \sum_{i = 1}^{n-1} p_i\ ,\\
+		p_{n-1} | \mathbf{n} ] &= - \sum_{i=1}^{n-2} p_{i} | \mathbf{n} ] - p_{n} | \mathbf{n} ]\ ,\\
+		\langle \mathbf{n}| p_{n-1} & = - \sum_{i=1}^{n-2} \langle \mathbf{n}| p_{i}  - \langle \mathbf{n}| p_{n}\ ,\\
+		\langle \mathbf{n}| p_{1} | \mathbf{n-1} ] & = - \sum_{i=2}^{n-2} \langle \mathbf{n}| p_{i} | \mathbf{n-1} ] - \langle \mathbf{n}| p_{n} | \mathbf{n-1} ] - \langle \mathbf{n}| p_{n-1} | \mathbf{n-1} ]\ ,\\
+		\langle \mathbf{n-1}| p_{1} | \mathbf{n} ] & = - \sum_{i=2}^{n-2} \langle \mathbf{n-1}| p_{i} | \mathbf{n} ] - \langle \mathbf{n-1}| p_{n} | \mathbf{n} ] - \langle \mathbf{n-1}| p_{n-1} | \mathbf{n} ]\ ,\\
+		2\,  p_{1}\cdot p_{n-1} &= m_n^2 - \sum_{i=1}^{n-2} \sum_{j=i+1}^{n-1} 2\, p_{i}\cdot p_{j} - \sum_{i=1}^{n-1} m_i^2\ ,
+	\end{align}
 	which is not a great manipulation of graphs, but we take systematically.
 \end{itemize}
 These are the operations on graph to ﬁnd a basis of contact terms.
@@ -300,6 +316,8 @@ Terms proportional to $p_i |\mathbf{i}] = m_i |\mathbf{i}]$ or $\langle \mathbf{
 \end{itemize}
 This method should provide both a contact-term basis and a systematic way of finding all the linear relations between different terms.
 
+\section{The massive minimal amplitudes basis}
+
 % \begin{acknowledgments}
 %     SDA is a
 % \end{acknowledgments} 
@@ -312,8 +330,8 @@ This method should provide both a contact-term basis and a systematic way of fin
 \section{Rational Kinematics and Massive Momentum Twistors}
     \label{sec:massivetwistors}
 
-\bibliographystyle{JHEP}
-\bibliography{papers}
+% \bibliographystyle{JHEP}
+% \bibliography{papers}
 
 \end{document}
 
