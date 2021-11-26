@@ -43,43 +43,43 @@
 	
 % \maketitle
 	
-\tableofcontents
+% \tableofcontents
 
-\listoftodos
+% \listoftodos
 
 % \section{Introduction}
 
-\section{Operators and Minimal Amplitudes}
+% \section{Operators and Minimal Amplitudes}
 
-\todo{three-points are special, we do only four points - no special kinematics involved}
+% \todo{three-points are special, we do only four points - no special kinematics involved}
 
-Each effective interaction will be identified by its {\it minimal} amplitude, {\it i.e.} the amplitude at leading order which does not vanish in free theory (if we switch off all the other interactions). This has to be a contact term, {\it i.e.} there are no intermediate modes propagating.
+% Each effective interaction will be identified by its {\it minimal} amplitude, {\it i.e.} the amplitude at leading order which does not vanish in free theory (if we switch off all the other interactions). This has to be a contact term, {\it i.e.} there are no intermediate modes propagating.
 
-As a first step in the classification procedure, we fix the mass-dimension $\left[\mathcal{O}\right]$ of the marginal operators for which we want to find a complete basis. From the minimal amplitudes we strip off the coupling of the effective interaction, which is related to the dimension of the corresponding marginal operator by
-\begin{equation}
-    \left[g_{\mathcal{O}}\right] = 4-\left[\mathcal{O}\right]\ .
-\end{equation}
-What we are looking for are the kinematic structures which have mass dimension
-\begin{equation}
-\label{eq::dimcontact}
-    \left[\mathcal{O}\right]-n\geq 0\ ,
-\end{equation}
-where $n$ is the number of external legs in the corresponding minimal amplitude. Equation \eqref{eq::dimcontact} provides a constraint on $n$ which can be further refined by taking into account which types of particles are found in the amplitudes. In fact, in order to get helicity weights right, each vector in the minimal amplitude will contribute at least with two spinor variables and each fermion at least with one. This leads to the stronger constraint. This condition is not only necessary but also sufficient for having local interactions.
-\begin{equation}
-\label{eq::particleconstraint}
- \left[\mathcal{O}\right] - n \geq \frac{1}{2} \cdot \left( 2\, n_g + n_f \right) \, \hspace{0.2em} \implies \hspace{0.2em} 2 n_g + \frac{3}{2} n_f + n_s \leq \left[\mathcal{O}\right]\ ,
-\end{equation}
-where $n_g$, $n_f$ and $n_s$ are respectively the number of vectors, fermions and scalars and clearly $n=n_g+n_f+n_s$.
-Next, we need to take into account the constraints coming from the condition that our kinematic structures must be ${\rm SL}(2,\mathbb{C})$ invariant. This requires to further distinguish between helicities of the different particles, and to find all the $(n_{g^-},n_{g^+},n_{f^-},n_{f^+},n_s)$. The superscript of the subscript specify the helicity of the particles: $n_g = n_{g^-}+n_{g^+}$ and  $n_f = n_{f^-}+n_{f^+}$. compatible with the constraint \eqref{eq::particleconstraint}.
-Once $n_g$, $n_f$ and $n_s$ are fixed, we take into account that every state can contribute to the kinematic structures with powers of its momentum, which correspond to derivates in the operator language. The total number of momenta $n_\partial$ is fixed by saturating the mass dimension constraint to
-\begin{equation}
-    n_\partial = \left[ \mathcal{O}\right] - 2 n_g - \frac{3}{2}n_f - n_s \> .
-\end{equation}
+% As a first step in the classification procedure, we fix the mass-dimension $\left[\mathcal{O}\right]$ of the marginal operators for which we want to find a complete basis. From the minimal amplitudes we strip off the coupling of the effective interaction, which is related to the dimension of the corresponding marginal operator by
+% \begin{equation}
+%     \left[g_{\mathcal{O}}\right] = 4-\left[\mathcal{O}\right]\ .
+% \end{equation}
+% What we are looking for are the kinematic structures which have mass dimension
+% \begin{equation}
+% \label{eq::dimcontact}
+%     \left[\mathcal{O}\right]-n\geq 0\ ,
+% \end{equation}
+% where $n$ is the number of external legs in the corresponding minimal amplitude. Equation \eqref{eq::dimcontact} provides a constraint on $n$ which can be further refined by taking into account which types of particles are found in the amplitudes. In fact, in order to get helicity weights right, each vector in the minimal amplitude will contribute at least with two spinor variables and each fermion at least with one. This leads to the stronger constraint. This condition is not only necessary but also sufficient for having local interactions.
+% \begin{equation}
+% \label{eq::particleconstraint}
+%  \left[\mathcal{O}\right] - n \geq \frac{1}{2} \cdot \left( 2\, n_g + n_f \right) \, \hspace{0.2em} \implies \hspace{0.2em} 2 n_g + \frac{3}{2} n_f + n_s \leq \left[\mathcal{O}\right]\ ,
+% \end{equation}
+% where $n_g$, $n_f$ and $n_s$ are respectively the number of vectors, fermions and scalars and clearly $n=n_g+n_f+n_s$.
+% Next, we need to take into account the constraints coming from the condition that our kinematic structures must be ${\rm SL}(2,\mathbb{C})$ invariant. This requires to further distinguish between helicities of the different particles, and to find all the $(n_{g^-},n_{g^+},n_{f^-},n_{f^+},n_s)$. The superscript of the subscript specify the helicity of the particles: $n_g = n_{g^-}+n_{g^+}$ and  $n_f = n_{f^-}+n_{f^+}$. compatible with the constraint \eqref{eq::particleconstraint}.
+% Once $n_g$, $n_f$ and $n_s$ are fixed, we take into account that every state can contribute to the kinematic structures with powers of its momentum, which correspond to derivates in the operator language. The total number of momenta $n_\partial$ is fixed by saturating the mass dimension constraint to
+% \begin{equation}
+%     n_\partial = \left[ \mathcal{O}\right] - 2 n_g - \frac{3}{2}n_f - n_s \> .
+% \end{equation}
 
 \section{The massless basis}
 
-In this section, we am going to present the graph-based method to find a basis of polynomial kinematic structures in a generic massless theory in four dimensions which are Poincaré invariant.
-\todo{explain Poicaré invariance}
+% In this section, we am going to present the graph-based method to find a basis of polynomial kinematic structures in a generic massless theory in four dimensions which are Poincaré invariant.
+% \todo{explain Poicaré invariance}
 
 \subsection{Kinematic structures from spinor helicity variables}
 \label{sec:kinematics}
@@ -234,16 +234,60 @@ Thinking of the kinematic structures in terms of graphs, specifically using the 
 
 The planarity of the graph translates into a sharp condition on the adjacency matrices associated to it:
 \begin{equation}
-	\sum A
+	\label{eq:planarity}
+	\sum_{l=j+1}^n \sum_{k=i+1}^{j-1} A_{k l} \overset{!}{=} 0 \ \ \ \ \mathrm{if} \ A_{i j} \neq 0\ ,
+\end{equation}
+for any $i=1,\dots , n$ and $j= i+2,\dots ,n-1$.
+
+This also provides an algorithmic method to write any non-planar structure in terms of planar ones. Indeed, if we consider a graph $(\mathbf{A}_i,\mathbf{S}_i)$ for which, for example, the red edges are non-planar, \textit{i.e.} if in \eqref{eq:planarity} any of the $A_{i,\,k l} \neq 0$, then we can recursively untie the corresponding crossing(s) using
+\begin{equation}
+	\mathbb{M}(\mathbf{A}_i,\mathbf{S}_i) = \mathbb{M}(\mathbf{A}_i+\mathbf{E}^{(i\,j)}_{(k\,l)},\mathbf{S}_i) + \mathbb{M}(\mathbf{A}_i+\mathbf{F}^{(i\,j)}_{(k\,l)},\mathbf{S}_i)\ ,
+\end{equation}
+where
+\begin{equation}
+		E^{(i\,j)}_{(k\,l),\, m n} = 
+		\begin{cases}
+			- 1 & (m\, n) = (i\, j),\, (m\, n) = (k\, l)\\
+			+1 & (m\, n) = (i\, k),\, (m\, n) = (j\, l)\\
+			0 & \mathrm{otherwise}
+		\end{cases}\, ,
+\end{equation}
+and
+\begin{equation}
+		F^{(i\,j)}_{(k\,l),\, m n} = 
+		\begin{cases}
+			- 1 & (m\, n) = (i\, j),\, (m\, n) = (k\, l)\\
+			+1 & (m\, n) = (i\, l),\, (m\, n) = (k\, j)\\
+			0 & \mathrm{otherwise}
+		\end{cases}\, .
 \end{equation}
 
-\todo{the adjacency matrix, planarity conditions and schouten and algorithm to untie crossings}
+This algorithm can be used to find a basis of $\mathrm{SU}(2)$ singlets in the tensor product of any finite-dimensional representation of the $\mathrm{SU}(2)$ group. Indeed, any tensor transforming in a representation $\mathbf{2\, q+1}$ can be written as a totally-symmetric tensor $T^{a_1\, \cdots \, a_q} = T^{(a_1\, \cdots \, a_q)}$, where $a_i$ are indices in the fundamental of $\mathrm{SU}(2)$. The singlets are given by contractions of any product of tensors of this kind with $\epsilon_{a_1 a_2} = - \epsilon_{a_2 a_1}$ and the Schouten identities are equivalent to
+\begin{equation}
+	\epsilon_{[a_1 a_2} \epsilon_{a_3] a_4} = 0\ .
+\end{equation}
+Then to any tensor $T$ we can associate a vertex with valence $q$, and edges correspond to contractions of two $\mathrm{SU}(2)$ indices through an $\epsilon_{a_i a_j}$. Any loop is then automatically zero because
+\begin{equation}
+	T^{a_1 \cdots a_i \cdots a_j \cdots a_n} \epsilon_{a_i a_j} = 0\ .
+\end{equation}
+This observation is useful if we want to apply our methods to select a basis of independent $\mathrm{SU}(2)$ gauge structures (see for example \cite{Huber:2021vnc}) or when we will consider polynomial structures with masses involved, because the little group for massive particles in four dimensions is exactly $\mathrm{SU}(2)$. This could be applied to the Lorentz group $\mathrm{SL}(2,\mathbb{C})$ as well because the finite-dimensional representations are in one-to-one correspondence with the those of $\mathrm{SU}(2)\times \mathrm{SU}(2)$.
 
 \subsubsection{Momentum conservation}
 
-We can take into account most of the relations coming from momentum conservation just by excluding the momentum of the $n^{\rm th}$-particle from the previous assignment. Then the $n^{\rm th}$-vertex will have valence $(\frac{|h_n|+h_n}{2},\frac{|h_n|-h_n}{2})$.
+Momentum conservation is more subtle and does not have a clear graph-based interpretation. On the other hand, the classification above allows for a massive simplification and the conditions to be imposed in order to find a basis of spinor structures independent up to both Schouten identities and momentum conservation are very easy.
 
-There are however $n$. One of which can be written as a linear combination of the other $n-1$. additional relations coming from momentum conservation which do not explicitly involve the momentum of the $n^{\rm th}$-particle:
+
+We can take into account most of the relations coming from momentum conservation just by excluding the momentum of the $n^{\rm th}$-particle from the previous assignment. Then the $n^{\rm th}$-vertex will have valence $(\frac{|h_n|+h_n}{2},\frac{|h_n|-h_n}{2})$\footnote{Fully eliminating the momentum of the $n^{\rm th}$-particle is a matter of choices}. This is equivalent to impose the constraint
+\begin{equation}
+	p_n = - \sum_{i = 1}^{n-1} p_i\ ,
+\end{equation}
+and we can \textit{eliminate} from our basis any graph whose adjacency matrices \textit{does not} satisfy the conditions
+\begin{equation}
+	A_{i n} = 0 \ \ \ \ \mathrm{or}\ \ \ \ S_{i n} = 0\ ,
+\end{equation}
+for any $i=1,\dots , n-1$.
+
+But this is not the end of the story, because there are $n$ additional momentum conservation conditions which do not involve any insertion of the momentum $n$:
 \begin{align}
 \label{eq::momcons2}
     0 = 
@@ -252,30 +296,64 @@ There are however $n$. One of which can be written as a linear combination of th
         \sum\limits_{j=1}^{n-1} \agl{n}{j} \sqr{j}{i} &  h_n<0\\
     \end{cases}
 \end{align}
-which are a consequence of the Dirac equation $p_{n\, \alpha \dot{\alpha}}\, \tlambda_{n}^{\dot{\alpha}}=\, 0 \, = \lambda^{\alpha}_n\, p_{n\, \alpha \dot{\alpha}}$, and
+which are a consequence of the equation of motion for free particles $p_{n\, \alpha \dot{\alpha}}\, \tlambda_{n}^{\dot{\alpha}}=\, 0 \, = \lambda^{\alpha}_n\, p_{n\, \alpha \dot{\alpha}}$, and
 \begin{equation}
 \label{eq::momcons1}
-    \sum_{i=1}^{n-2} \sum_{j=i+1}^{n-1} s_{i j} = 0\ ,\\
+	\left(\sum_{i = 1}^{n-1} p_{i \, \alpha \dot{\alpha}}\right)^2 =\sum_{i=1}^{n-2} \sum_{j=i+1}^{n-1} s_{i j} = p_n^2 = 0\ .\\
 \end{equation}
-Some observations are in order:
+
+As already noticed in the previous section, Schouten identities do not change the valences of vertices in the multigraph, then they do not change the number of momenta associated to each vertex. Then we have to find a set of elements in our planar basis which can be written as a linear combination of the others. Once we have discarded all the polynomial structures in which we find the momentum of the $n^{\rm th}$-particle, we need to carefully discard the structures which \textit{maximise} their appearance in conditions \eqref{eq::momcons2} and \eqref{eq::momcons1}. Since any edge $(1,n)$ or $(n-1,n)$ is planar, the natural choice is to isolate terms where either $p_1$ or $p_{n-1}$ appears\footnote{This is an actual choice between momenta of the $1^{\mathrm{st}}$ and the $n-1^{\mathrm{th}}$ momenta. We could actually choose an equivalent basis by writing \eqref{eq::momcons2} as
+\begin{align*}
+	&\begin{cases}
+		\agl{i}{1} \sqr{1}{n} = - \sum\limits_{j=2}^{n-1} \agl{i}{j} \sqr{j}{n} &  h_n>0\\[1em]
+        \agl{n}{1} \sqr{1}{i} = - \sum\limits_{j=2}^{n-1} \agl{n}{j} \sqr{j}{i} &  h_n<0\\
+	\end{cases}\ ,\\
+	&\begin{cases}
+		\agl{1}{n-1} \sqr{n-1}{n} = - \sum\limits_{j=2}^{n-1} \agl{1}{j} \sqr{j}{n} &  h_n>0\\[1em]
+        \agl{n}{n-1} \sqr{n-1}{1} = - \sum\limits_{j=2}^{n-1} \agl{n}{j} \sqr{j}{1} &  h_n<0\\
+	\end{cases}\ .
+\end{align*}
+} 
+and to write the additional momentum conservation conditions as
+\begin{align}
+	\label{eq:momconsCond1}
+	&\begin{cases}
+		\agl{i}{n-1} \sqr{n-1}{n} = - \sum\limits_{j=1}^{n-2} \agl{i}{j} \sqr{j}{n} &  h_n>0\\[1em]
+        \agl{n}{n-1} \sqr{n-1}{i} = - \sum\limits_{j=1}^{n-2} \agl{n}{j} \sqr{j}{i} &  h_n<0\\
+	\end{cases}\ ,\\
+	&\begin{cases}
+		\agl{n-1}{1} \sqr{1}{n} = - \sum\limits_{j=2}^{n-2} \agl{n-1}{j} \sqr{j}{n} &  h_n>0\\[1em]
+        \agl{n}{1} \sqr{1}{n-1} = - \sum\limits_{j=2}^{n-2} \agl{n}{j} \sqr{j}{n-1} &  h_n<0\\
+	\end{cases}\ ,
+\end{align}
+and
+\begin{equation}
+	\label{eq:momconsCond2}
+	s_{1\, n-1} = - \sum_{j=2}^{n-2} s_{1 j} - \sum_{i=2}^{n-2} \sum_{j=i+1}^{n-1} s_{i j}\ .
+\end{equation}
+The conditions for the adjacency matrices of the polynomial structures in our basis are trivial. We are going to write them in the case $h_n\leq 0$ for simplicity:
+\begin{equation}
+	\begin{split}
+		A_{n-1\, n} = 0 \ \ \ &\mathrm{or}\  \ \ S_{i\, n-1} = 0\ ,\\
+		A_{1\, n} = 0 \ \ \ &\mathrm{or}\ \ \ S_{1\, n-1} = 0\ ,\\
+		A_{1\, n-1} = 0 \ \ \ &\mathrm{or}\ \ \ S_{1\, n-1} = 0\ .\\
+	\end{split}
+\end{equation}
+Moreover, equations \eqref{eq:momconsCond1} and \eqref{eq:momconsCond2} provide an algorithmic way of writing linear relations of all the polynomial structures in terms of the elements of our basis.
+
+Checks done in this case:
 \begin{itemize}
-    \item The Schouten identities do not change the valences of vertices in the multigraph, so they do not change the number of momenta associated to each vertex.
-    %\item Since We want a basis of planar graphs, we solve most of the \eqref{eq::momcons2} for one of the momenta which maximises the number of planar multigraphs, the natural choice being either $p_1$ or $p_{n-1}$ (a different choice would give an over-counting of the independent structures) . Most of the relations in \eqref{eq::momcons2} are taken into account discarding all the structures with $\agl{i}{n-1} \sqr{n-1}{n}$ or $\agl{n}{n-1} \sqr{n-1}{i}$ according to the helicity of the $n^{\rm th}$-particle (or equivalently $\agl{i}{1} \sqr{1}{n} \big/ \agl{n}{1} \sqr{1}{i}$).
-    %\item Among \eqref{eq::momcons2}, there is one relation which do not involve neither $p_n$ nor $p_{n-1}$. This is taken into account discarding those structures where $\agl{n-1}{1} \sqr{1}{n} \big/ \agl{n}{1} \sqr{1}{n-1}$ appears (or $\agl{1}{n-1} \sqr{n-1}{n} \big/ \agl{n}{n-1} \sqr{n-1}{1}$).
-    \item Since we want a basis of planar graphs, we solve all but one of the \eqref{eq::momcons2} for one of the momenta which maximises the number of planar multigraphs, the natural choice being either $p_1$ or $p_{n-1}$ (a different choice would give an over-counting of the independent structures). The considered identities are then taken into account by simply discarding all the structures involving $\agl{i}{n-1} \sqr{n-1}{n}$ or $\agl{n}{n-1} \sqr{n-1}{i}$ according to the helicity of the $n^{\rm th}$-particle (or equivalently $\agl{i}{1} \sqr{1}{n} \big/ \agl{n}{1} \sqr{1}{i}$).
-    \item Among \eqref{eq::momcons2}, there is one relation which does not involve neither $p_n$ nor $p_{n-1}$. This is taken into account by discarding those structures where $\agl{n-1}{1} \sqr{1}{n} \big/ \agl{n}{1} \sqr{1}{n-1}$ appears (or $\agl{1}{n-1} \sqr{n-1}{n} \big/ \agl{n}{n-1} \sqr{n-1}{1}$).
-    \item Finally, the constraint \eqref{eq::momcons1} forces us to discard the terms proportional to $s_{1\, n-1}$.
+	\item The procedure seems to rely a lot on the cyclic order chosen for the vertices of the graphs and the momenta which we want to eliminate (using momentum conservation and equation of motion). We checked that the number of elements in the basis does not depend on this choices in many non-trivial examples, involving a large number of particles, also with higher helicity.
+	\item We showed that we can find a one-to-one map between graphs and structures, then generating all the graphs we can easily generate all the corresponding structures. We checked numerically that the relations we find through our algorithm are correct.
 \end{itemize}
-This algorithm classifies efficiently all the ${\rm SL}(2,\mathbb{C})$-invariant structures which are polynomial in the spinor variables with fixed mass dimension and helicity configuration, associated to each $(n_{g^-},n_{g^+},n_{f^-},n_{f^+},n_s)$. It also provides a very simple way of writing the dependent structures as linear combinations of the independent ones. We also notice that this algorithm an be applied also beyond gauge theories. Furthermore, the generalisation of this algorithm to massive spinors is possible and it will be discussed in future works.
 
 \section{The massive contact-term basis}
 
-The classification of independent structures in massive theories involves more technical considerations, but it is doable from a generalisation presented above for fully massless theories. The sources of such additional complications are two:
+The classification of independent structures in massive theories involves more technical considerations, but a generalisation of the method presented above for fully massless theories is possible. The sources of such additional complications are two:
 \begin{enumerate}
-	\item The little group structures
-	\item The equations of motion
+	\item The little group structures\ ,
+	\item The equations of motion involving mass terms\ .
 \end{enumerate}
-\todo{simplifications massive states as irreducible representation of LG}
 With respect to the massless case, we have additional Schouten identities to take into account for the LG indices.
 \begin{itemize}
 	\item \textbf{Schouten identities for Lorentz} are taken into account by considering planar graphs. The linear relations are easily found by iteratively untying the crossing. In the massive case, this procedure does not distinguish between massive spinor with contracted and free LG indices.
@@ -295,7 +373,6 @@ With respect to the massless case, we have additional Schouten identities to tak
 	Then we ﬁnd a proliferation of vertices, each particle is associated to a vertex carrying both helicity weight and momenta for massless particles and only spin weight for massive one. For each insertion of massive momenta we need to add a vertex next to the spin vertex of the corresponding particle.
 	\item \textbf{Momentum conservation} is now taken identically with respect to the massless case:
 	\begin{align}
-		p_n &= - \sum_{i = 1}^{n-1} p_i\ ,\\
 		p_{n-1} | \mathbf{n} ] &= - \sum_{i=1}^{n-2} p_{i} | \mathbf{n} ] - p_{n} | \mathbf{n} ]\ ,\\
 		\langle \mathbf{n}| p_{n-1} & = - \sum_{i=1}^{n-2} \langle \mathbf{n}| p_{i}  - \langle \mathbf{n}| p_{n}\ ,\\
 		\langle \mathbf{n}| p_{1} | \mathbf{n-1} ] & = - \sum_{i=2}^{n-2} \langle \mathbf{n}| p_{i} | \mathbf{n-1} ] - \langle \mathbf{n}| p_{n} | \mathbf{n-1} ] - \langle \mathbf{n}| p_{n-1} | \mathbf{n-1} ]\ ,\\
@@ -330,8 +407,8 @@ This method should provide both a contact-term basis and a systematic way of fin
 \section{Rational Kinematics and Massive Momentum Twistors}
     \label{sec:massivetwistors}
 
-% \bibliographystyle{JHEP}
-% \bibliography{papers}
+\bibliographystyle{JHEP}
+\bibliography{papers}
 
 \end{document}
 
