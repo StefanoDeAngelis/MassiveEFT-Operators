@@ -1,0 +1,4234 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    193362,       4226]
+NotebookOptionsPosition[    162136,       3642]
+NotebookOutlinePosition[    188698,       4167]
+CellTagsIndexPosition[    188655,       4164]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+The MassiveGraph.wl package needs:
+- GraphGenerator.wl which is in the GitHub repository \
+https://github.com/StefanoDeAngelis/SMEFT-operators
+- HelicityVariable.wl which is in the GitHub repository \
+https://github.com/StefanoDeAngelis/SpinorHelicity
+The documentation for such packages are not available yet.\
+\>", "Text",
+ CellChangeTimes->{{3.8571649122408247`*^9, 3.857164913217545*^9}, {
+  3.857164956687717*^9, 3.8571649636336613`*^9}, {3.857165549452724*^9, 
+  3.857165586992209*^9}, {3.857165631723131*^9, 3.8571656429740353`*^9}, {
+  3.857165680869403*^9, 
+  3.85716574595689*^9}},ExpressionUUID->"ca640bdb-a8cc-406e-a3bc-\
+517418a5a8a9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"<<", "HelicityVariables`"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"<<", "GraphGenerator`"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"<<", "MassiveGraphs`"}]}]], "Input",
+ CellChangeTimes->{{3.857147603978853*^9, 3.857147610124331*^9}, {
+  3.857164924058133*^9, 
+  3.8571649454073887`*^9}},ExpressionUUID->"5aea4e50-4355-47f0-8250-\
+c2a0385b5ee0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "IndependentSpinStructres"}]], "Input",
+ CellChangeTimes->{{3.857147694287999*^9, 3.857147702378042*^9}, {
+   3.8571498117148647`*^9, 3.857149812692746*^9}, {3.857149846261249*^9, 
+   3.857149847274785*^9}, {3.857149961180634*^9, 3.85714999997033*^9}, 
+   3.857152264427812*^9},
+ CellLabel->"In[2]:=",ExpressionUUID->"c8ffbe76-1c64-4e21-a928-935032297d18"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"IndependentSpinStructres[dim,opts][{label1,spin1,\
+category1},{label2,helicity2},...] gives a basis of kinematically independent \
+structures. Any spin structure, within the specified helicity category \
+(category1,helicity2,...) and mass dimension dim can be written as a linear \
+combination of element of this basis.\\n dim must be a positive integer. \\n \
+opts are the options of the function. \\n The particle configuration is given \
+as a sequence of lists: \\n \\t - massive particles are given as \
+three-element lists {label,spin,category} (spin and category are \
+half-integers, such that -spin  \[LessEqual] category  \[LessEqual] spin and \
+spin  \[GreaterEqual] 0). \\n \\t - massless particles are given as \
+two-element lists {label,helicity} (helicity is an half-integer).\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Options\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Options\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Options", "Tooltip"]& ], 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"MomentumConservation", "\[Rule]", "True"}], ",", 
+                    
+                    RowBox[{"MassSquared", "\[Rule]", "False"}]}], "}"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Attributes\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Attributes\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Attributes", "Tooltip"]& ], 
+                   RowBox[{"{", 
+                    RowBox[{"Protected", ",", "ReadProtected"}], "}"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], \
+"\<\"MassiveGraphs`IndependentSpinStructres\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"IndependentSpinStructres[dim,opts][{label1,spin1,\
+category1},{label2,helicity2},...] gives a basis of kinematically independent \
+structures. Any spin structure, within the specified helicity category \
+(category1,helicity2,...) and mass dimension dim can be written as a linear \
+combination of element of this basis.\\n dim must be a positive integer. \\n \
+opts are the options of the function. \\n The particle configuration is given \
+as a sequence of lists: \\n \\t - massive particles are given as \
+three-element lists {label,spin,category} (spin and category are \
+half-integers, such that -spin  \[LessEqual] category  \[LessEqual] spin and \
+spin  \[GreaterEqual] 0). \\n \\t - massless particles are given as \
+two-element lists {label,helicity} (helicity is an half-integer).\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {2., 8.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {2., 8.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[
+   Association[
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "IndependentSpinStructres[dim,opts][{label1,spin1,category1},{label2,\
+helicity2},...] gives a basis of kinematically independent structures. Any \
+spin structure, within the specified helicity category \
+(category1,helicity2,...) and mass dimension dim can be written as a linear \
+combination of element of this basis.\n dim must be a positive integer. \n \
+opts are the options of the function. \n The particle configuration is given \
+as a sequence of lists: \n \t - massive particles are given as three-element \
+lists {label,spin,category} (spin and category are half-integers, such that \
+-spin  \[LessEqual] category  \[LessEqual] spin and spin  \[GreaterEqual] 0). \
+\n \t - massless particles are given as two-element lists {label,helicity} \
+(helicity is an half-integer).", "Documentation" -> None, "OwnValues" -> None,
+     "UpValues" -> None, "DownValues" -> None, "SubValues" -> None, 
+    "DefaultValues" -> None, "NValues" -> None, "FormatValues" -> None, 
+    "Options" -> {
+     MassiveGraphs`MomentumConservation -> True, MassiveGraphs`MassSquared -> 
+      False}, "Attributes" -> {Protected, ReadProtected}, "FullName" -> 
+    "MassiveGraphs`IndependentSpinStructres"], False]]], "Output",
+ CellChangeTimes->{
+  3.857147702908607*^9, 3.857147746683303*^9, {3.857147805575141*^9, 
+   3.857147876423912*^9}, 3.857147924938569*^9, 3.857147959923605*^9, 
+   3.857149813147994*^9, 3.857149847743484*^9, 3.857149964011133*^9, {
+   3.8571499974305*^9, 3.857150000456771*^9}, 3.857151887964259*^9, 
+   3.85715202013535*^9, 3.857152266887286*^9, 3.8571529706673727`*^9, 
+   3.857153205886606*^9, 3.857164509633337*^9, 3.857164644949204*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"ca867487-59e4-42ab-b1d3-81e536654fd9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "UniformMassStructres"}]], "Input",
+ CellChangeTimes->{{3.8571532012087307`*^9, 3.857153209105188*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"5dc3bb6f-386e-4e23-91ab-e0847ec06759"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"UniformMassStructres[dim,opts][{label1,spin1,\
+category1},{label2,helicity2},...] gives a list of structures, within the \
+specified helicity category (category1,helicity2,...) and mass dimension dim, \
+which are not related by any kinematic relation (also considering the \
+relation mixing different helicity categories). \\n opts are the options of \
+the function. \\n The particle configuration is given as a sequence of lists: \
+\\n \\t - massive particles are given as three-element lists \
+{label,spin,category} (spin and category are half-integers, such that -spin  \
+\[LessEqual] category  \[LessEqual] spin and spin  \[GreaterEqual] 0). \\n \
+\\t - massless particles are given as two-element lists {label,helicity} \
+(helicity is an half-integer).\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Options\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Options\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Options", "Tooltip"]& ], 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"MomentumConservation", "\[Rule]", "True"}], ",", 
+                    
+                    RowBox[{"Echos", "\[Rule]", "False"}]}], "}"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Attributes\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Attributes\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Attributes", "Tooltip"]& ], 
+                   RowBox[{"{", 
+                    RowBox[{"Protected", ",", "ReadProtected"}], "}"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], \
+"\<\"MassiveGraphs`UniformMassStructres\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"UniformMassStructres[dim,opts][{label1,spin1,\
+category1},{label2,helicity2},...] gives a list of structures, within the \
+specified helicity category (category1,helicity2,...) and mass dimension dim, \
+which are not related by any kinematic relation (also considering the \
+relation mixing different helicity categories). \\n opts are the options of \
+the function. \\n The particle configuration is given as a sequence of lists: \
+\\n \\t - massive particles are given as three-element lists \
+{label,spin,category} (spin and category are half-integers, such that -spin  \
+\[LessEqual] category  \[LessEqual] spin and spin  \[GreaterEqual] 0). \\n \
+\\t - massless particles are given as two-element lists {label,helicity} \
+(helicity is an half-integer).\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {2., 8.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {2., 8.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[
+   Association[
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "UniformMassStructres[dim,opts][{label1,spin1,category1},{label2,\
+helicity2},...] gives a list of structures, within the specified helicity \
+category (category1,helicity2,...) and mass dimension dim, which are not \
+related by any kinematic relation (also considering the relation mixing \
+different helicity categories). \n opts are the options of the function. \n \
+The particle configuration is given as a sequence of lists: \n \t - massive \
+particles are given as three-element lists {label,spin,category} (spin and \
+category are half-integers, such that -spin  \[LessEqual] category  \
+\[LessEqual] spin and spin  \[GreaterEqual] 0). \n \t - massless particles \
+are given as two-element lists {label,helicity} (helicity is an \
+half-integer).", "Documentation" -> None, "OwnValues" -> None, "UpValues" -> 
+    None, "DownValues" -> None, "SubValues" -> None, "DefaultValues" -> None, 
+    "NValues" -> None, "FormatValues" -> None, 
+    "Options" -> {
+     MassiveGraphs`MomentumConservation -> True, MassiveGraphs`Echos -> 
+      False}, "Attributes" -> {Protected, ReadProtected}, "FullName" -> 
+    "MassiveGraphs`UniformMassStructres"], False]]], "Output",
+ CellChangeTimes->{3.857153210014573*^9, 3.857164512327869*^9, 
+  3.857164648318594*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"e2548abe-a2ec-4be5-a965-3ff2bd1a487e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"UniformMassStructres", "[", 
+   RowBox[{"6", ",", 
+    RowBox[{"Echos", "->", "True"}]}], "]"}], "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2", ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", 
+     RowBox[{"-", "1"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.857163728197563*^9, 3.857163764663682*^9}, 
+   3.857163982216691*^9},
+ CellLabel->"In[4]:=",ExpressionUUID->"3717b732-ca62-4756-8ea3-3f9d3302f66b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{"2", ",", "0", ",", "0", ",", "0"}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.8571646502860394`*^9},ExpressionUUID->"9da1cef3-c35e-47b7-a3a8-\
+6cb58f7ff98a"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs before momentum conservation:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   GraphicsBox[{GraphicsComplexBox[CompressedData["
+1:eJxlj1koxFEUxv+WLBOiLFlKU9bJUpQQDgqJsjxQzJO9mP6TJzElkRfbmPIi
+NNmSBxFGIZ+QsoxJkklJMhjD1CQeKOucp8mt29c995zvfD9pjVhe7ywIQsTv
+/VPHYyNH/fcPRxUEs3Ou5kuzhKmGY/On+ERKSUhCfqYOx2JeTlixhYRi0SRW
+bOBS692wlfhIe+vfbRuKbbhJG1f7Q82k1gdV99XtQtFp1Ml8H0gISS67H9hH
+c0DVeorPPY29u0dbHw5gk422FwbekSpTcjGl1CNGPrTzFmMiGSuUXKcX7oOa
+50hkH7wG231J5D3o4b3kyTmwybnoinPCVmTPTQbmQBNz0RxzwsjcpKo/kXtk
+72Aaa/FavZWM2ZaPQcM+lrcy0itTraRVHTS65RyhK7DVJWnkmV47amX6YQNK
+/balw6YninMq0cxfn2LcKz32Kur3fV7Up7k9Q1facnOv3EKR80cSxdk5Rp2y
+dK69j6QruGn3X7jApB3YTDOsWOQ6TXAfwnmOetgH0exLWt6DKN5L5ZwDJs5F
+3ZwTas5NK8yBQ+aiWeZEC3PTD+L6DzQ=
+      "], {
+       {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{1, 2}, 0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{
+         1, {-0.3355592528168837, 0.3355592528168832}, 4}], 
+         0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{
+         1, {-0.6644407471831147, 0.6644407471831181}, 4}], 
+         0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+        DiskBox[3, 0.02261146496815286], 
+        DiskBox[4, 0.02261146496815286]}}], {
+      {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+       ArrowBox[{{0., 1.}, {1., 0.}}, 0.02261146496815286], 
+       ArrowBox[BezierCurveBox[{{0., 1.}, {0.32888149436623243`, 0.}, {
+        0., -1.}}], 0.02261146496815286], 
+       ArrowBox[BezierCurveBox[{{0., 1.}, {-0.32888149436623243`, 0.}, {
+        0., -1.}}], 0.02261146496815286]}, 
+      {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+       0.7]}], {DiskBox[{0., 1.}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {0., 1.0226114649681528}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{0., -1.}, 0.02261146496815286], 
+        InsetBox["3", Offset[{0, 2}, {0., -0.9773885350318472}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+        InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}}}},
+    FormatType->TraditionalForm,
+    FrameTicks->None], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164650462286*^9},ExpressionUUID->"5b71d2d3-ccdd-4b2c-961e-\
+32a74ec3cf8f"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs with momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   GraphicsBox[{
+     GraphicsComplexBox[{{-0.5, 0.8660254037844386}, {0.5, 
+      0.8660254037844386}, {1., 0.}, {
+      0.5, -0.8660254037844386}, {-0.5, -0.8660254037844386}, {-1., 0.}}, {
+       {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{1, 6}, 0.02261146496815286], 
+        ArrowBox[{2, 6}, 0.02261146496815286], 
+        ArrowBox[{3, 4}, 0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+        DiskBox[3, 0.02261146496815286], DiskBox[4, 0.02261146496815286], 
+        DiskBox[5, 0.02261146496815286], 
+        DiskBox[6, 0.02261146496815286]}}], {
+      {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+       ArrowBox[{{-0.5, 0.8660254037844386}, {-0.5, -0.8660254037844386}}, 
+        0.02261146496815286], 
+       ArrowBox[{{0.5, 0.8660254037844386}, {-0.5, -0.8660254037844386}}, 
+        0.02261146496815286], 
+       ArrowBox[{{1., 0.}, {0.5, -0.8660254037844386}}, 0.02261146496815286]}, 
+      {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+       0.7]}], {DiskBox[{-0.5, 0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {-0.5, 0.8886368687525914}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {
+        DiskBox[{0.5, 0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {0.5, 0.8886368687525914}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {1., 0.02261146496815286}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {
+        DiskBox[{0.5, -0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {0.5, -0.8434139388162858}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {
+        DiskBox[{-0.5, -0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["3", Offset[{0, 2}, {-0.5, -0.8434139388162858}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+        InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}}}},
+    FormatType->TraditionalForm,
+    FrameTicks->None], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164650567107*^9},ExpressionUUID->"e98c9417-f0b5-445f-9192-\
+8b84800d3fb3"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Conditions:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{"False", ",", "True"}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164650592802*^9},ExpressionUUID->"25f1835c-a302-43cd-a0f3-\
+4cac70806a88"],
+
+Cell[BoxData["True"], "Echo",
+ CellChangeTimes->{
+  3.85716465065236*^9},ExpressionUUID->"6d7d7ecc-c120-4a5c-9b63-ae536846506b"],
+
+Cell[BoxData["\<\"No graph survided.\"\>"], "Echo",
+ CellChangeTimes->{
+  3.857164650671237*^9},ExpressionUUID->"e512bb1f-aaa7-4f57-9edc-\
+5b396c8ab855"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{"0", ",", "2", ",", "0", ",", "0"}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164650721294*^9},ExpressionUUID->"04796801-74a8-4d89-a7fd-\
+54c9ce9cc37b"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs before momentum conservation:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   GraphicsBox[{GraphicsComplexBox[CompressedData["
+1:eJxTTMoPSmViYGBQAWIQjQo+2KPSGPL7UWkGBje1FrF5ti/tBU5EqQu93bS/
+Rq+purjlub1D+a7j1xO374/aXp/54chTe4e1yq/naO/eH2ykfl2W4Yl9QtPx
+JGWPffvZe4QesJs/sj9h0nbyZNSB/a/8eNX2Zj2wj5iQctTO8uB+gcgNiXMs
+7tpviOp/92bfwf39M0Hgpv2HwB1yra8P7p8N4e+H8WUg6vfD1H+AmLcfZh4v
+xL79MPsiIe7ZHwB1TzzEvfsNoO5tgvhnvwHUPz4Q/+5ngPoXzf/2aP63R/O/
+PZr/7dH8b4/mf3s0/9uj+d8ezf/2aP63R/O/PZr/7dH8b4/mf3s0/9uj+d8e
+AKDMDc8=
+      "], {
+       {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{1, 2}, 0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{2, {0., -0.32888149436623243`}, 4}], 
+         0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{2, {0., 0.32888149436623243`}, 4}], 
+         0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+        DiskBox[3, 0.02261146496815286], 
+        DiskBox[4, 0.02261146496815286]}}], {
+      {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+       ArrowBox[{{0., 1.}, {1., 0.}}, 0.02261146496815286], 
+       ArrowBox[BezierCurveBox[{{1., 0.}, {
+        0.6644407471831181, -0.6644407471831147}, {0., -1.}}], 
+        0.02261146496815286], 
+       ArrowBox[BezierCurveBox[{{1., 0.}, {
+        0.3355592528168832, -0.3355592528168837}, {0., -1.}}], 
+        0.02261146496815286]}, 
+      {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+       0.7]}], {DiskBox[{0., 1.}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {0., 1.0226114649681528}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{0., -1.}, 0.02261146496815286], 
+        InsetBox["3", Offset[{0, 2}, {0., -0.9773885350318472}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+        InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}}}},
+    FormatType->TraditionalForm,
+    FrameTicks->None], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.8571646507952137`*^9},ExpressionUUID->"3df594e8-d24e-42b1-8a00-\
+7462e17acae7"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs with momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   GraphicsBox[{
+     GraphicsComplexBox[{{-0.5, 0.8660254037844386}, {0.5, 
+      0.8660254037844386}, {1., 0.}, {
+      0.5, -0.8660254037844386}, {-0.5, -0.8660254037844386}, {-1., 0.}}, {
+       {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{1, 2}, 0.02261146496815286], 
+        ArrowBox[{3, 6}, 0.02261146496815286], 
+        ArrowBox[{4, 6}, 0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+        DiskBox[3, 0.02261146496815286], DiskBox[4, 0.02261146496815286], 
+        DiskBox[5, 0.02261146496815286], 
+        DiskBox[6, 0.02261146496815286]}}], {
+      {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+       ArrowBox[{{-0.5, 0.8660254037844386}, {0.5, 0.8660254037844386}}, 
+        0.02261146496815286], 
+       ArrowBox[{{1., 0.}, {-0.5, -0.8660254037844386}}, 0.02261146496815286],
+        ArrowBox[{{0.5, -0.8660254037844386}, {-0.5, -0.8660254037844386}}, 
+        0.02261146496815286]}, 
+      {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+       0.7]}], {DiskBox[{-0.5, 0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {-0.5, 0.8886368687525914}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {
+        DiskBox[{0.5, 0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {0.5, 0.8886368687525914}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {
+        DiskBox[{0.5, -0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {0.5, -0.8434139388162858}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {
+        DiskBox[{-0.5, -0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["3", Offset[{0, 2}, {-0.5, -0.8434139388162858}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+        InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}}}},
+    FormatType->TraditionalForm,
+    FrameTicks->None], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164650872344*^9},ExpressionUUID->"cafdb0b3-5246-445b-9184-\
+89498690caa6"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Conditions:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164650895849*^9},ExpressionUUID->"3629ce5b-fe73-4141-b513-\
+220279c7a5c8"],
+
+Cell[BoxData["False"], "Echo",
+ CellChangeTimes->{
+  3.857164650938306*^9},ExpressionUUID->"16bf84b0-ca71-4c1c-ac67-\
+439ba1ed8a12"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   GraphicsBox[{GraphicsComplexBox[CompressedData["
+1:eJxTTMoPSmViYGBQAWIQjQo+2KPSGPL7UWkGBje1FrF5ti/tBU5EqQu93bS/
+Rq+purjlub1D+a7j1xO374/aXp/54chTe4e1yq/naO/eH2ykfl2W4Yl9QtPx
+JGWPffvZe4QesJs/sj9h0nbyZNSB/a/8eNX2Zj2wj5iQctTO8uB+gcgNiXMs
+7tpviOp/92bfwf39M0Hgpv2HwB1yra8P7p8N4e+H8WUg6vfD1H+AmLcfZh4v
+xL79MPsiIe7ZHwB1TzzEvfsNoO5tgvhnvwHUPz4Q/+5ngPoXzf/2aP63R/O/
+PZr/7dH8b4/mf3s0/9uj+d8ezf/2aP63R/O/PZr/7dH8b4/mf3s0/9uj+d8e
+AKDMDc8=
+      "], {
+       {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{1, 2}, 0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{2, {0., -0.32888149436623243`}, 4}], 
+         0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{2, {0., 0.32888149436623243`}, 4}], 
+         0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+        DiskBox[3, 0.02261146496815286], 
+        DiskBox[4, 0.02261146496815286]}}], {
+      {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+       ArrowBox[{{0., 1.}, {1., 0.}}, 0.02261146496815286], 
+       ArrowBox[BezierCurveBox[{{1., 0.}, {
+        0.6644407471831181, -0.6644407471831147}, {0., -1.}}], 
+        0.02261146496815286], 
+       ArrowBox[BezierCurveBox[{{1., 0.}, {
+        0.3355592528168832, -0.3355592528168837}, {0., -1.}}], 
+        0.02261146496815286]}, 
+      {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+       0.7]}], {DiskBox[{0., 1.}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {0., 1.0226114649681528}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{0., -1.}, 0.02261146496815286], 
+        InsetBox["3", Offset[{0, 2}, {0., -0.9773885350318472}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+        InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}}}},
+    FormatType->TraditionalForm,
+    FrameTicks->None], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.8571646509965553`*^9},ExpressionUUID->"c93f56aa-cc52-4f1e-a5fe-\
+e7f173818f75"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{"1", ",", "1", ",", "0", ",", "0"}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164651015482*^9},ExpressionUUID->"6205491f-dec6-49ef-906e-\
+407ec318e277"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs before momentum conservation:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   GraphicsBox[{
+     GraphicsComplexBox[{{0., 1.}, {1., 0.}, {0., -1.}, {-1., 0.}}, {
+       {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{1, 2}, 0.02261146496815286], 
+        ArrowBox[{1, 4}, 0.02261146496815286], 
+        ArrowBox[{2, 4}, 0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+        DiskBox[3, 0.02261146496815286], 
+        DiskBox[4, 0.02261146496815286]}}], {
+      {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+       ArrowBox[{{0., 1.}, {1., 0.}}, 0.02261146496815286], 
+       ArrowBox[{{0., 1.}, {0., -1.}}, 0.02261146496815286], 
+       ArrowBox[{{1., 0.}, {0., -1.}}, 0.02261146496815286]}, 
+      {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+       0.7]}], {DiskBox[{0., 1.}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {0., 1.0226114649681528}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{0., -1.}, 0.02261146496815286], 
+        InsetBox["3", Offset[{0, 2}, {0., -0.9773885350318472}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+        InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}}}},
+    FormatType->TraditionalForm,
+    FrameTicks->None], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164651070601*^9},ExpressionUUID->"671af388-440f-4666-8dbf-\
+e952871ea64f"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs with momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   GraphicsBox[{
+     GraphicsComplexBox[{{-0.5, 0.8660254037844386}, {0.5, 
+      0.8660254037844386}, {1., 0.}, {
+      0.5, -0.8660254037844386}, {-0.5, -0.8660254037844386}, {-1., 0.}}, {
+       {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{1, 6}, 0.02261146496815286], 
+        ArrowBox[{2, 3}, 0.02261146496815286], 
+        ArrowBox[{4, 6}, 0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+        DiskBox[3, 0.02261146496815286], DiskBox[4, 0.02261146496815286], 
+        DiskBox[5, 0.02261146496815286], 
+        DiskBox[6, 0.02261146496815286]}}], {
+      {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+       ArrowBox[{{-0.5, 0.8660254037844386}, {-0.5, -0.8660254037844386}}, 
+        0.02261146496815286], 
+       ArrowBox[{{0.5, 0.8660254037844386}, {1., 0.}}, 0.02261146496815286], 
+       ArrowBox[{{0.5, -0.8660254037844386}, {-0.5, -0.8660254037844386}}, 
+        0.02261146496815286]}, 
+      {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+       0.7]}], {DiskBox[{-0.5, 0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {-0.5, 0.8886368687525914}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {
+        DiskBox[{0.5, 0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {0.5, 0.8886368687525914}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {
+        DiskBox[{0.5, -0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {0.5, -0.8434139388162858}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {
+        DiskBox[{-0.5, -0.8660254037844386}, 0.02261146496815286], 
+        InsetBox["3", Offset[{0, 2}, {-0.5, -0.8434139388162858}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+        InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}}}},
+    FormatType->TraditionalForm,
+    FrameTicks->None], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.8571646511337976`*^9},ExpressionUUID->"8b47cc8a-57a8-4e0b-a7e6-\
+d07858a23434"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Conditions:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{"False", ",", "True"}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.85716465115429*^9},ExpressionUUID->"aab7548b-b8cc-487e-ab1c-92d6c77ce3e9"],
+
+Cell[BoxData["True"], "Echo",
+ CellChangeTimes->{
+  3.857164651197817*^9},ExpressionUUID->"63f1c0f8-f320-46fb-b7c6-\
+7799c014061e"],
+
+Cell[BoxData["\<\"No graph survided.\"\>"], "Echo",
+ CellChangeTimes->{
+  3.857164651214506*^9},ExpressionUUID->"d4f330d2-3914-4c16-85b2-\
+fe9e1af1396e"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{"1", ",", "0", ",", "1", ",", "0"}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.8571646512561913`*^9},ExpressionUUID->"11bdb966-1722-47e3-98e7-\
+5e59730c4ce8"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs before momentum conservation:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{
+    GraphicsBox[{GraphicsComplexBox[CompressedData["
+1:eJxlj1koxFEUxv+WLBOiLFlKU9bJUpQQDgqJsjxQzJO9mP6TJzElkRfbmPIi
+NNmSBxFGIZ+QsoxJkklJMhjD1CQeKOucp8mt29c995zvfD9pjVhe7ywIQsTv
+/VPHYyNH/fcPRxUEs3Ou5kuzhKmGY/On+ERKSUhCfqYOx2JeTlixhYRi0SRW
+bOBS692wlfhIe+vfbRuKbbhJG1f7Q82k1gdV99XtQtFp1Ml8H0gISS67H9hH
+c0DVeorPPY29u0dbHw5gk422FwbekSpTcjGl1CNGPrTzFmMiGSuUXKcX7oOa
+50hkH7wG231J5D3o4b3kyTmwybnoinPCVmTPTQbmQBNz0RxzwsjcpKo/kXtk
+72Aaa/FavZWM2ZaPQcM+lrcy0itTraRVHTS65RyhK7DVJWnkmV47amX6YQNK
+/balw6YninMq0cxfn2LcKz32Kur3fV7Up7k9Q1facnOv3EKR80cSxdk5Rp2y
+dK69j6QruGn3X7jApB3YTDOsWOQ6TXAfwnmOetgH0exLWt6DKN5L5ZwDJs5F
+3ZwTas5NK8yBQ+aiWeZEC3PTD+L6DzQ=
+       "], {
+        {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+         ArrowBox[BezierCurveBox[{
+          1, {-0.3355592528168837, 0.3355592528168832}, 4}], 
+          0.02261146496815286], 
+         ArrowBox[BezierCurveBox[{
+          1, {-0.6644407471831147, 0.6644407471831181}, 4}], 
+          0.02261146496815286], ArrowBox[{2, 3}, 0.02261146496815286]}, 
+        {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+         DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+         DiskBox[3, 0.02261146496815286], DiskBox[4, 0.02261146496815286]}}], {
+       {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[BezierCurveBox[{{0., 1.}, {0.32888149436623243`, 0.}, {
+         0., -1.}}], 0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{{0., 1.}, {-0.32888149436623243`, 0.}, {
+         0., -1.}}], 0.02261146496815286], 
+        ArrowBox[{{1., 0.}, {0., -1.}}, 0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {DiskBox[{0., 1.}, 0.02261146496815286], 
+         InsetBox["1", Offset[{0, 2}, {0., 1.0226114649681528}], ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+         InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{0., -1.}, 0.02261146496815286], 
+         InsetBox["3", Offset[{0, 2}, {0., -0.9773885350318472}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+         InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}}}},
+     FormatType->TraditionalForm,
+     FrameTicks->None], ",", 
+    GraphicsBox[{
+      GraphicsComplexBox[{{0., 1.}, {1., 0.}, {0., -1.}, {-1., 0.}}, {
+        {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+         ArrowBox[{1, 2}, 0.02261146496815286], 
+         ArrowBox[{1, 4}, 0.02261146496815286], 
+         ArrowBox[{3, 4}, 0.02261146496815286]}, 
+        {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+         DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+         DiskBox[3, 0.02261146496815286], DiskBox[4, 0.02261146496815286]}}], {
+       {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[BezierCurveBox[{{0., 1.}, {0.32888149436623243`, 0.}, {
+         0., -1.}}], 0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{{0., 1.}, {-0.32888149436623243`, 0.}, {
+         0., -1.}}], 0.02261146496815286], 
+        ArrowBox[{{1., 0.}, {0., -1.}}, 0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {DiskBox[{0., 1.}, 0.02261146496815286], 
+         InsetBox["1", Offset[{0, 2}, {0., 1.0226114649681528}], ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+         InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{0., -1.}, 0.02261146496815286], 
+         InsetBox["3", Offset[{0, 2}, {0., -0.9773885350318472}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+         InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}}}},
+     FormatType->TraditionalForm,
+     FrameTicks->None]}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164651330426*^9},ExpressionUUID->"fbe6ba1a-c520-4027-8c3c-\
+57d4cd6ac2a9"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs with momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{
+    GraphicsBox[{
+      GraphicsComplexBox[{{-0.30901699437494745`, 0.9510565162951535}, {
+       0.8090169943749475, 0.5877852522924731}, {
+       0.8090169943749475, -0.5877852522924731}, {-0.30901699437494745`, \
+-0.9510565162951535}, {-1., 0.}}, {
+        {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+         ArrowBox[{1, 5}, 0.021812234931106983`], 
+         ArrowBox[{2, 5}, 0.021812234931106983`], 
+         ArrowBox[{3, 4}, 0.021812234931106983`]}, 
+        {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+         DiskBox[1, 0.021812234931106983], DiskBox[2, 0.021812234931106983], 
+         DiskBox[3, 0.021812234931106983], DiskBox[4, 0.021812234931106983], 
+         DiskBox[5, 0.021812234931106983]}}], {
+       {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{{-0.30901699437494745`, 
+         0.9510565162951535}, {-0.30901699437494745`, -0.9510565162951535}}, 
+         0.021812234931106983`], 
+        ArrowBox[{{0.8090169943749475, 
+         0.5877852522924731}, {-0.30901699437494745`, -0.9510565162951535}}, 
+         0.021812234931106983`], 
+        ArrowBox[{{
+         0.8090169943749475, -0.5877852522924731}, {-0.30901699437494745`, \
+-0.9510565162951535}}, 0.021812234931106983`]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {
+         DiskBox[{-0.30901699437494745, 0.9510565162951535}, 
+          0.021812234931106983], 
+         InsetBox["1", 
+          Offset[{0, 2}, {-0.30901699437494745, 0.9728687512262605}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0.8090169943749475, 0.5877852522924731}, 
+          0.021812234931106983], 
+         InsetBox["1", 
+          Offset[{0, 2}, {0.8090169943749475, 0.6095974872235801}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0.8090169943749475, -0.5877852522924731}, 
+          0.021812234931106983], 
+         InsetBox["2", 
+          Offset[{0, 2}, {0.8090169943749475, -0.5659730173613662}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{-0.30901699437494745, -0.9510565162951535}, 
+          0.021812234931106983], 
+         InsetBox["3", 
+          Offset[{0, 2}, {-0.30901699437494745, -0.9292442813640466}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.021812234931106983], 
+         InsetBox["4", Offset[{0, 2}, {-1., 0.021812234931106983}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}}}},
+     FormatType->TraditionalForm,
+     FrameTicks->None], ",", 
+    GraphicsBox[{
+      GraphicsComplexBox[{{-0.30901699437494745`, 0.9510565162951535}, {
+       0.8090169943749475, 0.5877852522924731}, {
+       0.8090169943749475, -0.5877852522924731}, {-0.30901699437494745`, \
+-0.9510565162951535}, {-1., 0.}}, {
+        {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+         ArrowBox[{1, 5}, 0.021812234931106983`], 
+         ArrowBox[{2, 3}, 0.021812234931106983`], 
+         ArrowBox[{4, 5}, 0.021812234931106983`]}, 
+        {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+         DiskBox[1, 0.021812234931106983], DiskBox[2, 0.021812234931106983], 
+         DiskBox[3, 0.021812234931106983], DiskBox[4, 0.021812234931106983], 
+         DiskBox[5, 0.021812234931106983]}}], {
+       {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{{-0.30901699437494745`, 
+         0.9510565162951535}, {-0.30901699437494745`, -0.9510565162951535}}, 
+         0.021812234931106983`], 
+        ArrowBox[{{0.8090169943749475, 
+         0.5877852522924731}, {-0.30901699437494745`, -0.9510565162951535}}, 
+         0.021812234931106983`], 
+        ArrowBox[{{
+         0.8090169943749475, -0.5877852522924731}, {-0.30901699437494745`, \
+-0.9510565162951535}}, 0.021812234931106983`]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {
+         DiskBox[{-0.30901699437494745, 0.9510565162951535}, 
+          0.021812234931106983], 
+         InsetBox["1", 
+          Offset[{0, 2}, {-0.30901699437494745, 0.9728687512262605}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0.8090169943749475, 0.5877852522924731}, 
+          0.021812234931106983], 
+         InsetBox["1", 
+          Offset[{0, 2}, {0.8090169943749475, 0.6095974872235801}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0.8090169943749475, -0.5877852522924731}, 
+          0.021812234931106983], 
+         InsetBox["2", 
+          Offset[{0, 2}, {0.8090169943749475, -0.5659730173613662}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{-0.30901699437494745, -0.9510565162951535}, 
+          0.021812234931106983], 
+         InsetBox["3", 
+          Offset[{0, 2}, {-0.30901699437494745, -0.9292442813640466}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.021812234931106983], 
+         InsetBox["4", Offset[{0, 2}, {-1., 0.021812234931106983}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}}}},
+     FormatType->TraditionalForm,
+     FrameTicks->None]}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164651407257*^9},ExpressionUUID->"e0537534-8d6f-4014-bf84-\
+fb35664c4bb5"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Conditions:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{"False", ",", "False", ",", "True", ",", "False"}], 
+   "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164651433765*^9},ExpressionUUID->"b1460492-37ad-4182-a2f0-\
+1b2471a0f83c"],
+
+Cell[BoxData["True"], "Echo",
+ CellChangeTimes->{
+  3.8571646514444523`*^9},ExpressionUUID->"560a3e51-1340-417b-93e1-\
+d85954bca7c7"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Conditions:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{"True", ",", "False", ",", "True", ",", "False"}], "}"}]}]], "Echo",\
+
+ CellChangeTimes->{
+  3.857164651486514*^9},ExpressionUUID->"e6952548-d196-4436-b969-\
+093642651129"],
+
+Cell[BoxData["True"], "Echo",
+ CellChangeTimes->{
+  3.857164651506744*^9},ExpressionUUID->"7b52a0d4-752f-45c5-acdc-\
+35f69a5f4d6c"],
+
+Cell[BoxData["\<\"No graph survided.\"\>"], "Echo",
+ CellChangeTimes->{
+  3.857164651551941*^9},ExpressionUUID->"a602a0a3-6f7c-49ea-8c15-\
+4d28ecf6d608"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{"0", ",", "1", ",", "1", ",", "0"}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164651571507*^9},ExpressionUUID->"9e42a0b2-28ac-4d5a-911a-\
+426811ee7a16"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs before momentum conservation:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{
+    GraphicsBox[{
+      GraphicsComplexBox[{{0., 1.}, {1., 0.}, {0., -1.}, {-1., 0.}}, {
+        {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+         ArrowBox[{1, 2}, 0.02261146496815286], 
+         ArrowBox[{2, 4}, 0.02261146496815286], 
+         ArrowBox[{3, 4}, 0.02261146496815286]}, 
+        {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+         DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+         DiskBox[3, 0.02261146496815286], DiskBox[4, 0.02261146496815286]}}], {
+       {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{{0., 1.}, {0., -1.}}, 0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{{1., 0.}, {
+         0.6644407471831181, -0.6644407471831147}, {0., -1.}}], 
+         0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{{1., 0.}, {
+         0.3355592528168832, -0.3355592528168837}, {0., -1.}}], 
+         0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {DiskBox[{0., 1.}, 0.02261146496815286], 
+         InsetBox["1", Offset[{0, 2}, {0., 1.0226114649681528}], ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+         InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{0., -1.}, 0.02261146496815286], 
+         InsetBox["3", Offset[{0, 2}, {0., -0.9773885350318472}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+         InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}}}},
+     FormatType->TraditionalForm,
+     FrameTicks->None], ",", 
+    GraphicsBox[{
+      GraphicsComplexBox[{{0., 1.}, {1., 0.}, {0., -1.}, {-1., 0.}}, {
+        {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+         ArrowBox[{1, 4}, 0.02261146496815286], 
+         ArrowBox[{2, 3}, 0.02261146496815286], 
+         ArrowBox[{2, 4}, 0.02261146496815286]}, 
+        {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+         DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+         DiskBox[3, 0.02261146496815286], DiskBox[4, 0.02261146496815286]}}], {
+       {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{{0., 1.}, {0., -1.}}, 0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{{1., 0.}, {
+         0.6644407471831181, -0.6644407471831147}, {0., -1.}}], 
+         0.02261146496815286], 
+        ArrowBox[BezierCurveBox[{{1., 0.}, {
+         0.3355592528168832, -0.3355592528168837}, {0., -1.}}], 
+         0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {DiskBox[{0., 1.}, 0.02261146496815286], 
+         InsetBox["1", Offset[{0, 2}, {0., 1.0226114649681528}], ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+         InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{0., -1.}, 0.02261146496815286], 
+         InsetBox["3", Offset[{0, 2}, {0., -0.9773885350318472}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+         InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}}}},
+     FormatType->TraditionalForm,
+     FrameTicks->None]}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.8571646516403112`*^9},ExpressionUUID->"c72daff9-5c46-4484-b17b-\
+e058cfc0fd96"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs with momenta:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   RowBox[{
+    GraphicsBox[{
+      GraphicsComplexBox[{{-0.30901699437494745`, 0.9510565162951535}, {
+       0.8090169943749475, 0.5877852522924731}, {
+       0.8090169943749475, -0.5877852522924731}, {-0.30901699437494745`, \
+-0.9510565162951535}, {-1., 0.}}, {
+        {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+         ArrowBox[{1, 2}, 0.021812234931106983`], 
+         ArrowBox[{3, 5}, 0.021812234931106983`], 
+         ArrowBox[{4, 5}, 0.021812234931106983`]}, 
+        {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+         DiskBox[1, 0.021812234931106983], DiskBox[2, 0.021812234931106983], 
+         DiskBox[3, 0.021812234931106983], DiskBox[4, 0.021812234931106983], 
+         DiskBox[5, 0.021812234931106983]}}], {
+       {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{{-0.30901699437494745`, 
+         0.9510565162951535}, {-0.30901699437494745`, -0.9510565162951535}}, 
+         0.021812234931106983`], 
+        ArrowBox[{{0.8090169943749475, 
+         0.5877852522924731}, {-0.30901699437494745`, -0.9510565162951535}}, 
+         0.021812234931106983`], 
+        ArrowBox[{{
+         0.8090169943749475, -0.5877852522924731}, {-0.30901699437494745`, \
+-0.9510565162951535}}, 0.021812234931106983`]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {
+         DiskBox[{-0.30901699437494745, 0.9510565162951535}, 
+          0.021812234931106983], 
+         InsetBox["1", 
+          Offset[{0, 2}, {-0.30901699437494745, 0.9728687512262605}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0.8090169943749475, 0.5877852522924731}, 
+          0.021812234931106983], 
+         InsetBox["2", 
+          Offset[{0, 2}, {0.8090169943749475, 0.6095974872235801}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0.8090169943749475, -0.5877852522924731}, 
+          0.021812234931106983], 
+         InsetBox["2", 
+          Offset[{0, 2}, {0.8090169943749475, -0.5659730173613662}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{-0.30901699437494745, -0.9510565162951535}, 
+          0.021812234931106983], 
+         InsetBox["3", 
+          Offset[{0, 2}, {-0.30901699437494745, -0.9292442813640466}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.021812234931106983], 
+         InsetBox["4", Offset[{0, 2}, {-1., 0.021812234931106983}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}}}},
+     FormatType->TraditionalForm,
+     FrameTicks->None], ",", 
+    GraphicsBox[{
+      GraphicsComplexBox[{{-0.30901699437494745`, 0.9510565162951535}, {
+       0.8090169943749475, 0.5877852522924731}, {
+       0.8090169943749475, -0.5877852522924731}, {-0.30901699437494745`, \
+-0.9510565162951535}, {-1., 0.}}, {
+        {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+         ArrowBox[{1, 5}, 0.021812234931106983`], 
+         ArrowBox[{2, 5}, 0.021812234931106983`], 
+         ArrowBox[{3, 4}, 0.021812234931106983`]}, 
+        {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+         DiskBox[1, 0.021812234931106983], DiskBox[2, 0.021812234931106983], 
+         DiskBox[3, 0.021812234931106983], DiskBox[4, 0.021812234931106983], 
+         DiskBox[5, 0.021812234931106983]}}], {
+       {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{{-0.30901699437494745`, 
+         0.9510565162951535}, {-0.30901699437494745`, -0.9510565162951535}}, 
+         0.021812234931106983`], 
+        ArrowBox[{{0.8090169943749475, 
+         0.5877852522924731}, {-0.30901699437494745`, -0.9510565162951535}}, 
+         0.021812234931106983`], 
+        ArrowBox[{{
+         0.8090169943749475, -0.5877852522924731}, {-0.30901699437494745`, \
+-0.9510565162951535}}, 0.021812234931106983`]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+        0.7]}], {
+         DiskBox[{-0.30901699437494745, 0.9510565162951535}, 
+          0.021812234931106983], 
+         InsetBox["1", 
+          Offset[{0, 2}, {-0.30901699437494745, 0.9728687512262605}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0.8090169943749475, 0.5877852522924731}, 
+          0.021812234931106983], 
+         InsetBox["2", 
+          Offset[{0, 2}, {0.8090169943749475, 0.6095974872235801}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{0.8090169943749475, -0.5877852522924731}, 
+          0.021812234931106983], 
+         InsetBox["2", 
+          Offset[{0, 2}, {0.8090169943749475, -0.5659730173613662}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {
+         DiskBox[{-0.30901699437494745, -0.9510565162951535}, 
+          0.021812234931106983], 
+         InsetBox["3", 
+          Offset[{0, 2}, {-0.30901699437494745, -0.9292442813640466}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.021812234931106983], 
+         InsetBox["4", Offset[{0, 2}, {-1., 0.021812234931106983}], 
+          ImageScaled[{0.5, 0}],
+          BaseStyle->"Graphics"]}}}},
+     FormatType->TraditionalForm,
+     FrameTicks->None]}], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164651712542*^9},ExpressionUUID->"9d4801ac-5603-4e8a-887a-\
+4ac12b27ab58"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Conditions:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", "True", "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164651734774*^9},ExpressionUUID->"8195cf43-6635-4987-a4c3-\
+44d72f2f882e"],
+
+Cell[BoxData["True"], "Echo",
+ CellChangeTimes->{
+  3.857164651777836*^9},ExpressionUUID->"6d809ed3-f16f-4138-99b6-\
+4a56d3475916"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Conditions:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", "False", "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.8571646517951307`*^9},ExpressionUUID->"16e86653-8a46-4ff1-9701-\
+04dafaef9b2b"],
+
+Cell[BoxData["False"], "Echo",
+ CellChangeTimes->{
+  3.857164651845408*^9},ExpressionUUID->"c4fbedf9-a51c-4ae2-aa42-\
+af2e60ece615"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"Graphs:\"\>",
+   "EchoLabel"], "  ", 
+  RowBox[{"{", 
+   GraphicsBox[{
+     GraphicsComplexBox[{{0., 1.}, {1., 0.}, {0., -1.}, {-1., 0.}}, {
+       {RGBColor[1, 0, 0], Opacity[0.7], Arrowheads[Medium], 
+        ArrowBox[{1, 4}, 0.02261146496815286], 
+        ArrowBox[{2, 3}, 0.02261146496815286], 
+        ArrowBox[{2, 4}, 0.02261146496815286]}, 
+       {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+        DiskBox[1, 0.02261146496815286], DiskBox[2, 0.02261146496815286], 
+        DiskBox[3, 0.02261146496815286], 
+        DiskBox[4, 0.02261146496815286]}}], {
+      {RGBColor[0, 0, 1], Opacity[0.7], Arrowheads[Medium], 
+       ArrowBox[{{0., 1.}, {0., -1.}}, 0.02261146496815286], 
+       ArrowBox[BezierCurveBox[{{1., 0.}, {
+        0.6644407471831181, -0.6644407471831147}, {0., -1.}}], 
+        0.02261146496815286], 
+       ArrowBox[BezierCurveBox[{{1., 0.}, {
+        0.3355592528168832, -0.3355592528168837}, {0., -1.}}], 
+        0.02261146496815286]}, 
+      {Hue[0.6, 0.2, 0.8], EdgeForm[{GrayLevel[0], Opacity[
+       0.7]}], {DiskBox[{0., 1.}, 0.02261146496815286], 
+        InsetBox["1", Offset[{0, 2}, {0., 1.0226114649681528}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{1., 0.}, 0.02261146496815286], 
+        InsetBox["2", Offset[{0, 2}, {1., 0.02261146496815286}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{0., -1.}, 0.02261146496815286], 
+        InsetBox["3", Offset[{0, 2}, {0., -0.9773885350318472}], ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}, {DiskBox[{-1., 0.}, 0.02261146496815286], 
+        InsetBox["4", Offset[{0, 2}, {-1., 0.02261146496815286}], 
+         ImageScaled[{0.5, 0}],
+         BaseStyle->"Graphics"]}}}},
+    FormatType->TraditionalForm,
+    FrameTicks->None], "}"}]}]], "Echo",
+ CellChangeTimes->{
+  3.857164651908128*^9},ExpressionUUID->"4c212862-b2eb-44a3-9986-\
+cc85e5a038a5"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       SubscriptBox["p", "2"]},
+      "AngleSquareChain",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+         TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+         RowBox[{#, ",", "{", 
+           Apply[Sequence, 
+            Delete[
+             Flatten[
+              
+              Table[{HelicityVariables`Private`i, ","}, {
+               HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+         "]"}]& )], "2"], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.857163765525695*^9, 3.857163870343205*^9, 
+  3.85716398747093*^9, 3.857164520964098*^9, 3.857164651926757*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"98729de8-176a-4ffe-9439-603fae893d46"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"UniformMassStructres", "[", 
+   RowBox[{"6", ",", 
+    RowBox[{"MomentumConservation", "->", "False"}]}], "]"}], "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2", ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", 
+     RowBox[{"-", "1"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8571642492326202`*^9, 3.857164253876589*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"71b0af2b-0f67-442d-b139-6ef41f86cb0b"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "1"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"1"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"1"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "1"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"1"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"1"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       SubscriptBox["p", "2"]},
+      "AngleSquareChain",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+         TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+         RowBox[{#, ",", "{", 
+           Apply[Sequence, 
+            Delete[
+             Flatten[
+              
+              Table[{HelicityVariables`Private`i, ","}, {
+               HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+         "]"}]& )], "2"], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "1"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"1"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"1"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"2"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "1"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"1"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"1"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "1"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"1"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"1"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "1"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"1"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"1"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "1"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"1"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"1"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.857164254188775*^9, 3.857164531788735*^9, 
+  3.8571646666336327`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"a1cc6093-28fa-4bdd-a05d-fc9d61e4317d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"IndependentSpinStructres", "[", "6", "]"}], "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2", ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", 
+     RowBox[{"-", "1"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.857164016110096*^9, 3.857164030969697*^9}, {
+  3.8571642002394667`*^9, 3.857164200864565*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"c0bd3fdd-b3b5-4af2-a6c3-05402baca343"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       SubscriptBox["p", "2"]},
+      "AngleSquareChain",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+         TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+         RowBox[{#, ",", "{", 
+           Apply[Sequence, 
+            Delete[
+             Flatten[
+              
+              Table[{HelicityVariables`Private`i, ","}, {
+               HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+         "]"}]& )], "2"], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"2"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"2"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"2"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], "2"], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "SquareB",
+      DisplayFunction->(RowBox[{"[", 
+         RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+      InterpretationFunction->(RowBox[{"SquareB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], "2"]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], "2"], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"2"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "SquareB",
+      DisplayFunction->(RowBox[{"[", 
+         RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+      InterpretationFunction->(RowBox[{"SquareB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], "2"]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.857164031279098*^9, 3.8571642017677507`*^9, 
+  3.857164589356783*^9, 3.857164668336138*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"e6f6c08c-7fcd-445c-8a24-ed534a8b80c2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"IndependentSpinStructres", "[", 
+   RowBox[{"6", ",", 
+    RowBox[{"MassSquared", "->", "True"}]}], "]"}], "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"2", ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"3", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"4", ",", 
+     RowBox[{"-", "1"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.857164038533362*^9, 3.857164043567594*^9}, {
+  3.857164090870749*^9, 3.857164133636483*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"4d3688a2-21e2-4e1e-904c-31f4215b0fec"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       SubscriptBox["p", "2"]},
+      "AngleSquareChain",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+         TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+         RowBox[{#, ",", "{", 
+           Apply[Sequence, 
+            Delete[
+             Flatten[
+              
+              Table[{HelicityVariables`Private`i, ","}, {
+               HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+         "]"}]& )], "2"], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"2"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"2"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"2"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], "2"], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "SquareB",
+      DisplayFunction->(RowBox[{"[", 
+         RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+      InterpretationFunction->(RowBox[{"SquareB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], "2"]}], ",", 
+   RowBox[{
+    RowBox[{"-", 
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      SubscriptBox["p", "2"]},
+     "AngleSquareChain",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", #, "|", 
+        TemplateSlotSequence[{3, 3 - 1 + Length[{"2"}]}], "|", #2, "]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleSquareChain", "[", 
+        RowBox[{#, ",", "{", 
+          Apply[Sequence, 
+           Delete[
+            Flatten[
+             
+             Table[{HelicityVariables`Private`i, ","}, {
+              HelicityVariables`Private`i, {"2"}}]], -1]], "}", ",", #2}], 
+        "]"}]& )], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"1"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "AngleB",
+      DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+         RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+      InterpretationFunction->(RowBox[{"AngleB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], "2"], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    SuperscriptBox[
+     TemplateBox[{
+       TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+           RowBox[{#}], "]"}]& )], 
+       TemplateBox[{"2"}, "SpinorMV", 
+        DisplayFunction -> (StyleBox[#, Bold]& ), 
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+           RowBox[{#}], "]"}]& )]},
+      "SquareB",
+      DisplayFunction->(RowBox[{"[", 
+         RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+      InterpretationFunction->(RowBox[{"SquareB", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], "2"]}], ",", 
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{"1"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}], ",", 
+   RowBox[{
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"4"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "AngleB",
+     DisplayFunction->(RowBox[{"\[LeftAngleBracket]", 
+        RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ),
+     InterpretationFunction->(RowBox[{"AngleB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox[
+       OverscriptBox["m", "~"], 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{"2"},
+     "Mass",
+     DisplayFunction->(SubscriptBox["m", 
+       RowBox[{#}]]& ),
+     InterpretationFunction->(RowBox[{"Mass", "[", 
+        RowBox[{#}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"1"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )], " ", 
+    TemplateBox[{
+      TemplateBox[{"3"}, "SpinorML", DisplayFunction -> (RowBox[{#}]& ), 
+       InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+          RowBox[{#}], "]"}]& )], 
+      TemplateBox[{"2"}, "SpinorMV", DisplayFunction -> (StyleBox[#, Bold]& ),
+        InterpretationFunction -> (RowBox[{"SpinorMV[]", "[", 
+          RowBox[{#}], "]"}]& )]},
+     "SquareB",
+     DisplayFunction->(RowBox[{"[", 
+        RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ),
+     InterpretationFunction->(RowBox[{"SquareB", "[", 
+        RowBox[{#, ",", #2}], "]"}]& )]}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.857164044014736*^9, {3.85716409141374*^9, 3.857164134027082*^9}, 
+   3.857164591821273*^9, 3.8571646704844112`*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"ccd04ef4-9049-481a-9e94-57d9b992ed8e"]
+}, Open  ]]
+},
+WindowSize->{1440, 847},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+InputAliases->Association["intt" -> RowBox[{"\[Integral]", 
+     RowBox[{"\[SelectionPlaceholder]", 
+       RowBox[{"\[DifferentialD]", "\[Placeholder]"}]}]}], "dintt" -> 
+  RowBox[{
+     SubsuperscriptBox[
+     "\[Integral]", "\[SelectionPlaceholder]", "\[Placeholder]"], 
+     RowBox[{"\[Placeholder]", 
+       RowBox[{"\[DifferentialD]", "\[Placeholder]"}]}]}], "rintt" -> 
+  RowBox[{
+     UnderscriptBox["\[Integral]", 
+      RowBox[{"\[SelectionPlaceholder]", "\[Element]", "\[Placeholder]"}]], 
+     "\[Placeholder]"}], "sumt" -> RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"\[SelectionPlaceholder]", "=", "\[Placeholder]"}], 
+      "\[Placeholder]"], "\[Placeholder]"}], "prodt" -> RowBox[{
+     UnderoverscriptBox["\[Product]", 
+      RowBox[{"\[SelectionPlaceholder]", "=", "\[Placeholder]"}], 
+      "\[Placeholder]"], "\[Placeholder]"}], "dt" -> RowBox[{
+     SubscriptBox["\[PartialD]", "\[SelectionPlaceholder]"], 
+     "\[Placeholder]"}], "cbrt" -> 
+  RadicalBox[
+   "\[SelectionPlaceholder]", "3", SurdForm -> True, MultilineFunction -> 
+    None], "surd" -> 
+  RadicalBox[
+   "\[SelectionPlaceholder]", "\[Placeholder]", SurdForm -> True, 
+    MultilineFunction -> None], "ket" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "Ket"], "bra" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "Bra"], "braket" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "BraKet"], 
+  "delay" -> TemplateBox[{"\[SelectionPlaceholder]"}, "SystemsModelDelay"], 
+  "grad" -> RowBox[{
+     SubscriptBox["\[Del]", "\[SelectionPlaceholder]"], "\[Placeholder]"}], 
+  "del." -> RowBox[{
+     SubscriptBox["\[Del]", "\[SelectionPlaceholder]"], ".", 
+     "\[Placeholder]"}], "delx" -> RowBox[{
+     SubscriptBox["\[Del]", "\[SelectionPlaceholder]"], "\[Cross]", 
+     "\[Placeholder]"}], "del2" -> RowBox[{
+     SubsuperscriptBox["\[Del]", "\[SelectionPlaceholder]", 2], 
+     "\[Placeholder]"}], "kd" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "KroneckerDeltaSeq"], "algs" -> 
+  TemplateBox[{}, "Algebraics"], "bools" -> TemplateBox[{}, "Booleans"], 
+  "comps" -> TemplateBox[{}, "Complexes"], "ints" -> 
+  TemplateBox[{}, "Integers"], "pris" -> TemplateBox[{}, "Primes"], "rats" -> 
+  TemplateBox[{}, "Rationals"], "reals" -> TemplateBox[{}, "Reals"], "pints" -> 
+  TemplateBox[{}, "PositiveIntegers"], "npints" -> 
+  TemplateBox[{}, "NonPositiveIntegers"], "nnints" -> 
+  TemplateBox[{}, "NonNegativeIntegers"], "nints" -> 
+  TemplateBox[{}, "NegativeIntegers"], "prats" -> 
+  TemplateBox[{}, "PositiveRationals"], "nprats" -> 
+  TemplateBox[{}, "NonPositiveRationals"], "nnrats" -> 
+  TemplateBox[{}, "NonNegativeRationals"], "nrats" -> 
+  TemplateBox[{}, "NegativeRationals"], "preals" -> 
+  TemplateBox[{}, "PositiveReals"], "npreals" -> 
+  TemplateBox[{}, "NonPositiveReals"], "nnreals" -> 
+  TemplateBox[{}, "NonNegativeReals"], "nreals" -> 
+  TemplateBox[{}, "NegativeReals"], "dlim" -> RowBox[{
+     UnderscriptBox["\[Limit]", 
+      RowBox[{"\[SelectionPlaceholder]", 
+        UnderscriptBox["\[Rule]", 
+         TemplateBox[{}, "Integers"]], "\[Infinity]"}]], "\[Placeholder]"}], 
+  "dMlim" -> RowBox[{
+     UnderscriptBox["\[MaxLimit]", 
+      RowBox[{"\[SelectionPlaceholder]", 
+        UnderscriptBox["\[Rule]", 
+         TemplateBox[{}, "Integers"]], "\[Infinity]"}]], "\[Placeholder]"}], 
+  "dmlim" -> RowBox[{
+     UnderscriptBox["\[MinLimit]", 
+      RowBox[{"\[SelectionPlaceholder]", 
+        UnderscriptBox["\[Rule]", 
+         TemplateBox[{}, "Integers"]], "\[Infinity]"}]], "\[Placeholder]"}], 
+  "tue" -> OverscriptBox["\[UndirectedEdge]", "\[Placeholder]"], "tde" -> 
+  OverscriptBox["\[DirectedEdge]", "\[Placeholder]"], "cB" -> 
+  TemplateBox[{}, "CombinatorB"], "cC" -> TemplateBox[{}, "CombinatorC"], 
+  "cI" -> TemplateBox[{}, "CombinatorI"], "cK" -> 
+  TemplateBox[{}, "CombinatorK"], "cS" -> TemplateBox[{}, "CombinatorS"], 
+  "cW" -> TemplateBox[{}, "CombinatorW"], "cY" -> 
+  TemplateBox[{}, "CombinatorY"], "lu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"}, 
+    "SpinorLaUp", DisplayFunction -> (RowBox[{
+       SuperscriptBox["\[Lambda]", #2], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorUndot", "[", #, "]", "[", "$lam", "]", "[", #2, "]", "[", 
+       "Null", "]"}]& )], "ld" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"}, 
+    "SpinorLaDown", DisplayFunction -> (RowBox[{
+       SubscriptBox["\[Lambda]", #2], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorUndot", "[", #, "]", "[", "$lam", "]", "[", "Null", "]", 
+       "[", #2, "]"}]& )], "muu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"}, 
+    "SpinorMuUp", DisplayFunction -> (RowBox[{
+       SuperscriptBox["\[Mu]", #2], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorUndot", "[", #, "]", "[", "$mu", "]", "[", #2, "]", "[", 
+       "Null", "]"}]& )], "mud" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"}, 
+    "SpinorMuDown", DisplayFunction -> (RowBox[{
+       SubscriptBox["\[Mu]", #2], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorUndot", "[", #, "]", "[", "$mu", "]", "[", "Null", "]", 
+       "[", #2, "]"}]& )], "lp" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorUndotBareL", 
+    DisplayFunction -> (RowBox[{"\[Lambda]", "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorUndotBare", "[", #, "]", "[", "$lam", "]"}]& )], "mp" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorUndotBareM", 
+    DisplayFunction -> (RowBox[{"\[Mu]", "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorUndotBare", "[", #, "]", "[", "$mu", "]"}]& )], "ltu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"}, 
+    "SpinorLatUp", DisplayFunction -> (RowBox[{
+       SuperscriptBox[
+        OverscriptBox["\[Lambda]", "~"], #2], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorDot", "[", #, "]", "[", "$lam", "]", "[", #2, "]", "[", 
+       "Null", "]"}]& )], "ltd" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"}, 
+    "SpinorLatDown", DisplayFunction -> (RowBox[{
+       SubscriptBox[
+        OverscriptBox["\[Lambda]", "~"], #2], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorDot", "[", #, "]", "[", "$lam", "]", "[", "Null", "]", 
+       "[", #2, "]"}]& )], "mtu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"}, 
+    "SpinorMutUp", DisplayFunction -> (RowBox[{
+       SuperscriptBox[
+        OverscriptBox["\[Mu]", "~"], #2], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorDot", "[", #, "]", "[", "$mu", "]", "[", #2, "]", "[", 
+       "Null", "]"}]& )], "mtd" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"}, 
+    "SpinorMutDown", DisplayFunction -> (RowBox[{
+       SubscriptBox[
+        OverscriptBox["\[Mu]", "~"], #2], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorDot", "[", #, "]", "[", "$mu", "]", "[", "Null", "]", 
+       "[", #2, "]"}]& )], "ltp" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorDotBareL", 
+    DisplayFunction -> (RowBox[{
+       OverscriptBox["\[Lambda]", "~"], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorDotBare", "[", #, "]", "[", "$lam", "]"}]& )], "mtp" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorDotBareM", 
+    DisplayFunction -> (RowBox[{
+       OverscriptBox["\[Mu]", "~"], "[", #, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"SpinorDotBare", "[", #, "]", "[", "$mu", "]"}]& )], "ab" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "SpinorAngleBracket", DisplayFunction -> (RowBox[{"\[LeftAngleBracket]", 
+       RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorAngleBracket", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sb" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "SpinorSquareBracket", DisplayFunction -> (RowBox[{"[", 
+       RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorSquareBracket", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "cas" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", 
+     RowBox[{"{", "\[SelectionPlaceholder]", "}"}], 
+     "\[SelectionPlaceholder]"}, "AngleSquareChain", 
+    DisplayFunction -> (RowBox[{"\[LeftAngleBracket]", #, #2, #3, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"Chain", "[", "$angle", ",", #, ",", #2, ",", #3, ",", "$square",
+        "]"}]& )], "csa" -> TemplateBox[{"\[SelectionPlaceholder]", 
+     RowBox[{"{", "\[SelectionPlaceholder]", "}"}], 
+     "\[SelectionPlaceholder]"}, "SquareAngleChain", 
+    DisplayFunction -> (RowBox[{"[", #, #2, #3, "\[RightAngleBracket]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"Chain", "[", "$square", ",", #, ",", #2, ",", #3, ",", "$angle",
+        "]"}]& )], "caa" -> TemplateBox[{"\[SelectionPlaceholder]", 
+     RowBox[{"{", "\[SelectionPlaceholder]", "}"}], 
+     "\[SelectionPlaceholder]"}, "AngleAngleChain", 
+    DisplayFunction -> (
+     RowBox[{"\[LeftAngleBracket]", #, #2, #3, "\[RightAngleBracket]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"Chain", "[", "$angle", ",", #, ",", #2, ",", #3, ",", "$angle", 
+       "]"}]& )], "css" -> TemplateBox[{"\[SelectionPlaceholder]", 
+     RowBox[{"{", "\[SelectionPlaceholder]", "}"}], 
+     "\[SelectionPlaceholder]"}, "SquareSquareChain", 
+    DisplayFunction -> (RowBox[{"[", #, #2, #3, "]"}]& ), 
+    InterpretationFunction -> (
+     RowBox[{"Chain", "[", "$square", ",", #, ",", #2, ",", #3, ",", 
+       "$square", "]"}]& )], "lcup" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"}, 
+    "LevicivitaSHUp", DisplayFunction -> (SuperscriptBox["\[Epsilon]", 
+      RowBox[{#, #2}]]& ), 
+    InterpretationFunction -> (
+     RowBox[{"LeviCivitaSH", "[", #, ",", #2, "]", "[", "$up", "]"}]& )], 
+  "lcd" -> TemplateBox[{"\[SelectionPlaceholder]", "\[SelectionPlaceholder]"},
+     "LevicivitaSHDown", DisplayFunction -> (SubscriptBox["\[Epsilon]", 
+      RowBox[{#, #2}]]& ), 
+    InterpretationFunction -> (
+     RowBox[{"LeviCivitaSH", "[", #, ",", #2, "]", "[", "$down", "]"}]& )], 
+  "suum" -> TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "SpinorUndottedML", DisplayFunction -> (SubsuperscriptBox["\[Lambda]", 
+      RowBox[{#}], 
+      RowBox[{#2}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorUndottedML[$up]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sudm" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "SpinorUndottedDownML", DisplayFunction -> (SubscriptBox["\[Lambda]", 
+      RowBox[{#, #2}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorUndottedML[$down]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sdum" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "SpinorDottedUpML", DisplayFunction -> (SubsuperscriptBox[
+      OverscriptBox["\[Lambda]", "~"], 
+      RowBox[{#}], 
+      OverscriptBox[
+       RowBox[{#2}], "."]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorDottedML[$up]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sddm" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "SpinorDottedDownML", DisplayFunction -> (SubscriptBox[
+      OverscriptBox["\[Lambda]", "~"], 
+      RowBox[{#, 
+        OverscriptBox[#2, "."]}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorDottedML[$down]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "Suuu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]", "\[Placeholder]"},
+     "SpinorUndottedMV", DisplayFunction -> (SubsuperscriptBox["\[Lambda]", 
+      RowBox[{#}], 
+      RowBox[{#2, #3}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorUndottedMV[$up,$up]", "[", 
+       RowBox[{#, ",", #2, ",", #3}], "]"}]& )], "Suud" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]", "\[Placeholder]"},
+     "SpinorUndottedMV", DisplayFunction -> (SubsuperscriptBox["\[Lambda]", 
+      RowBox[{#, #3}], 
+      RowBox[{#2}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorUndottedMV[$up,$down]", "[", 
+       RowBox[{#, ",", #2, ",", #3}], "]"}]& )], "Sudu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]", "\[Placeholder]"},
+     "SpinorUndottedMV", DisplayFunction -> (SubsuperscriptBox["\[Lambda]", 
+      RowBox[{#, #2}], 
+      RowBox[{#3}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorUndottedMV[$down,$up]", "[", 
+       RowBox[{#, ",", #2, ",", #3}], "]"}]& )], "Sudd" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]", "\[Placeholder]"},
+     "SpinorUndottedMV", DisplayFunction -> (SubscriptBox["\[Lambda]", 
+      RowBox[{#, #2, #3}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorUndottedMV[$down,$down]", "[", 
+       RowBox[{#, ",", #2, ",", #3}], "]"}]& )], "Sduu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]", "\[Placeholder]"},
+     "SpinorDottedMV", DisplayFunction -> (SubsuperscriptBox[
+      OverscriptBox["\[Lambda]", "~"], 
+      RowBox[{#}], 
+      RowBox[{
+        OverscriptBox[
+         RowBox[{#2}], "."], #3}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorDottedMV[$up,$up]", "[", 
+       RowBox[{#, ",", #2, ",", #3}], "]"}]& )], "Sdud" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]", "\[Placeholder]"},
+     "SpinorDottedMV", DisplayFunction -> (SubsuperscriptBox[
+      OverscriptBox["\[Lambda]", "~"], 
+      RowBox[{#, #3}], 
+      OverscriptBox[
+       RowBox[{#2}], "."]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorDottedMV[$up,$down]", "[", 
+       RowBox[{#, ",", #2, ",", #3}], "]"}]& )], "Sddu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]", "\[Placeholder]"},
+     "SpinorDottedMV", DisplayFunction -> (SubsuperscriptBox[
+      OverscriptBox["\[Lambda]", "~"], 
+      RowBox[{#, 
+        OverscriptBox[
+         RowBox[{#2}], "."]}], 
+      RowBox[{#3}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorDottedMV[$down,$up]", "[", 
+       RowBox[{#, ",", #2, ",", #3}], "]"}]& )], "Sddd" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]", "\[Placeholder]"},
+     "SpinorDottedMV", DisplayFunction -> (SubscriptBox[
+      OverscriptBox["\[Lambda]", "~"], 
+      RowBox[{#, 
+        OverscriptBox[
+         RowBox[{#2}], "."], " ", #3}]]& ), 
+    InterpretationFunction -> (RowBox[{"SpinorDottedMV[$down,$down]", "[", 
+       RowBox[{#, ",", #2, ",", #3}], "]"}]& )], "ELuuu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "EpsilonLorentzUndotted", DisplayFunction -> (SuperscriptBox["\[Epsilon]", 
+      RowBox[{#, #2}]]& ), 
+    InterpretationFunction -> (RowBox[{"EpsilonLorentzUndotted[$up,$up]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "ELudu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "EpsilonLorentzUndotted", 
+    DisplayFunction -> (SubsuperscriptBox["\[Delta]", 
+      RowBox[{#}], 
+      RowBox[{#2}]]& ), 
+    InterpretationFunction -> (
+     RowBox[{"EpsilonLorentzUndotted[$down,$up]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "ELudd" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "EpsilonLorentzUndotted", DisplayFunction -> (SubscriptBox["\[Epsilon]", 
+      RowBox[{#, #2}]]& ), 
+    InterpretationFunction -> (
+     RowBox[{"EpsilonLorentzUndotted[$down,$down]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "ELduu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "EpsilonLorentzDotted", DisplayFunction -> (SuperscriptBox["\[Epsilon]", 
+      RowBox[{
+        OverscriptBox[#, "."], 
+        OverscriptBox[#2, "."]}]]& ), 
+    InterpretationFunction -> (RowBox[{"EpsilonLorentzDotted[$up,$up]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "ELddu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "EpsilonLorentzDotted", 
+    DisplayFunction -> (SubsuperscriptBox["\[Delta]", 
+      OverscriptBox[#, "."], 
+      OverscriptBox[#2, "."]]& ), 
+    InterpretationFunction -> (RowBox[{"EpsilonLorentzDotted[$down,$up]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "ELddd" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, 
+    "EpsilonLorentzDotted", DisplayFunction -> (SubscriptBox["\[Epsilon]", 
+      RowBox[{
+        OverscriptBox[#, "."], 
+        OverscriptBox[#2, "."]}]]& ), 
+    InterpretationFunction -> (
+     RowBox[{"EpsilonLorentzDotted[$down,$down]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "ESuu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "EpsilonSpin", 
+    DisplayFunction -> (SuperscriptBox["\[Epsilon]", 
+      RowBox[{#, #2}]]& ), 
+    InterpretationFunction -> (RowBox[{"EpsilonSpin[$up,$up]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "ESdu" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "EpsilonSpin", 
+    DisplayFunction -> (SubsuperscriptBox["\[Delta]", 
+      RowBox[{#}], 
+      RowBox[{#2}]]& ), 
+    InterpretationFunction -> (RowBox[{"EpsilonSpin[$down,$up]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "ESdd" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "EpsilonSpin", 
+    DisplayFunction -> (SubscriptBox["\[Epsilon]", 
+      RowBox[{#, #2}]]& ), 
+    InterpretationFunction -> (RowBox[{"EpsilonSpin[$down,$down]", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "abmm" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorML", 
+      DisplayFunction -> (RowBox[{#}]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+         RowBox[{#}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]"}, "SpinorML", 
+      DisplayFunction -> (RowBox[{#}]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+         RowBox[{#}], "]"}]& )]}, "AngleB", 
+    DisplayFunction -> (RowBox[{"\[LeftAngleBracket]", 
+       RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ), 
+    InterpretationFunction -> (RowBox[{"AngleB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "abmMu" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorML", 
+      DisplayFunction -> (RowBox[{#}]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+         RowBox[{#}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SuperscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$up]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "AngleB", 
+    DisplayFunction -> (RowBox[{"\[LeftAngleBracket]", 
+       RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ), 
+    InterpretationFunction -> (RowBox[{"AngleB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "abmMd" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorML", 
+      DisplayFunction -> (RowBox[{#}]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+         RowBox[{#}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SubscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$down]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "AngleB", 
+    DisplayFunction -> (RowBox[{"\[LeftAngleBracket]", 
+       RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ), 
+    InterpretationFunction -> (RowBox[{"AngleB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "abMuMu" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SuperscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$up]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SuperscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$up]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "AngleB", 
+    DisplayFunction -> (RowBox[{"\[LeftAngleBracket]", 
+       RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ), 
+    InterpretationFunction -> (RowBox[{"AngleB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "abMdMu" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SubscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$down]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SuperscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$up]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "AngleB", 
+    DisplayFunction -> (RowBox[{"\[LeftAngleBracket]", 
+       RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ), 
+    InterpretationFunction -> (RowBox[{"AngleB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "abMdMd" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SubscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$down]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SubscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$down]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "AngleB", 
+    DisplayFunction -> (RowBox[{"\[LeftAngleBracket]", 
+       RowBox[{#, "\[MediumSpace]", #2}], "\[RightAngleBracket]"}]& ), 
+    InterpretationFunction -> (RowBox[{"AngleB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sbmm" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorML", 
+      DisplayFunction -> (RowBox[{#}]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+         RowBox[{#}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]"}, "SpinorML", 
+      DisplayFunction -> (RowBox[{#}]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+         RowBox[{#}], "]"}]& )]}, "SquareB", 
+    DisplayFunction -> (RowBox[{"[", 
+       RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ), 
+    InterpretationFunction -> (RowBox[{"SquareB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sbmMu" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorML", 
+      DisplayFunction -> (RowBox[{#}]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+         RowBox[{#}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SuperscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$up]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "SquareB", 
+    DisplayFunction -> (RowBox[{"[", 
+       RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ), 
+    InterpretationFunction -> (RowBox[{"SquareB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sbmMd" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]"}, "SpinorML", 
+      DisplayFunction -> (RowBox[{#}]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorML", "[", 
+         RowBox[{#}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SubscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$down]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "SquareB", 
+    DisplayFunction -> (RowBox[{"[", 
+       RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ), 
+    InterpretationFunction -> (RowBox[{"SquareB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sbMuMu" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SuperscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$up]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SuperscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$up]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "SquareB", 
+    DisplayFunction -> (RowBox[{"[", 
+       RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ), 
+    InterpretationFunction -> (RowBox[{"SquareB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sbMdMu" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SubscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$down]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SuperscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$up]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "SquareB", 
+    DisplayFunction -> (RowBox[{"[", 
+       RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ), 
+    InterpretationFunction -> (RowBox[{"SquareB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )], "sbMdMd" -> TemplateBox[{
+     TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SubscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$down]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )], 
+     TemplateBox[{"\[Placeholder]", "\[Placeholder]"}, "SpinorMV", 
+      DisplayFunction -> (SubscriptBox[
+        RowBox[{#}], 
+        RowBox[{#2}]]& ), 
+      InterpretationFunction -> (RowBox[{"SpinorMV[$down]", "[", 
+         RowBox[{#, ",", #2}], "]"}]& )]}, "SquareB", 
+    DisplayFunction -> (RowBox[{"[", 
+       RowBox[{#, "\[MediumSpace]", #2}], "]"}]& ), 
+    InterpretationFunction -> (RowBox[{"SquareB", "[", 
+       RowBox[{#, ",", #2}], "]"}]& )]],
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (May 11, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"737017d0-3b89-4c8b-b700-608bba871d62"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 658, 13, 104, "Text",ExpressionUUID->"ca640bdb-a8cc-406e-a3bc-517418a5a8a9"],
+Cell[1219, 35, 425, 10, 73, "Input",ExpressionUUID->"5aea4e50-4355-47f0-8250-c2a0385b5ee0"],
+Cell[CellGroupData[{
+Cell[1669, 49, 384, 6, 30, "Input",ExpressionUUID->"c8ffbe76-1c64-4e21-a928-935032297d18"],
+Cell[2056, 57, 12069, 272, 238, "Output",ExpressionUUID->"ca867487-59e4-42ab-b1d3-81e536654fd9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14162, 334, 209, 3, 30, "Input",ExpressionUUID->"5dc3bb6f-386e-4e23-91ab-e0847ec06759"],
+Cell[14374, 339, 11573, 265, 214, "Output",ExpressionUUID->"e2548abe-a2ec-4be5-a965-3ff2bd1a487e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25984, 609, 608, 17, 30, "Input",ExpressionUUID->"3717b732-ca62-4756-8ea3-3f9d3302f66b"],
+Cell[CellGroupData[{
+Cell[26617, 630, 262, 8, 25, "Echo",ExpressionUUID->"9da1cef3-c35e-47b7-a3a8-6cb58f7ff98a"],
+Cell[26882, 640, 2641, 50, 113, "Echo",ExpressionUUID->"5b71d2d3-ccdd-4b2c-961e-32a74ec3cf8f"],
+Cell[29526, 692, 2547, 49, 101, "Echo",ExpressionUUID->"e98c9417-f0b5-445f-9192-8b84800d3fb3"],
+Cell[32076, 743, 250, 8, 25, "Echo",ExpressionUUID->"25f1835c-a302-43cd-a0f3-4cac70806a88"],
+Cell[32329, 753, 128, 2, 25, "Echo",ExpressionUUID->"6d7d7ecc-c120-4a5c-9b63-ae536846506b"],
+Cell[32460, 757, 153, 3, 25, "Echo",ExpressionUUID->"e512bb1f-aaa7-4f57-9edc-5b396c8ab855"],
+Cell[32616, 762, 260, 8, 25, "Echo",ExpressionUUID->"04796801-74a8-4d89-a7fd-54c9ce9cc37b"],
+Cell[32879, 772, 2434, 47, 113, "Echo",ExpressionUUID->"3df594e8-d24e-42b1-8a00-7462e17acae7"],
+Cell[35316, 821, 2547, 49, 101, "Echo",ExpressionUUID->"cafdb0b3-5246-445b-9184-89498690caa6"],
+Cell[37866, 872, 214, 7, 25, "Echo",ExpressionUUID->"3629ce5b-fe73-4141-b513-220279c7a5c8"],
+Cell[38083, 881, 132, 3, 25, "Echo",ExpressionUUID->"16bf84b0-ca71-4c1c-ac67-439ba1ed8a12"],
+Cell[38218, 886, 2405, 47, 113, "Echo",ExpressionUUID->"c93f56aa-cc52-4f1e-a5fe-e7f173818f75"],
+Cell[40626, 935, 260, 8, 25, "Echo",ExpressionUUID->"6205491f-dec6-49ef-906e-407ec318e277"],
+Cell[40889, 945, 1815, 34, 113, "Echo",ExpressionUUID->"671af388-440f-4666-8dbf-e952871ea64f"],
+Cell[42707, 981, 2549, 49, 101, "Echo",ExpressionUUID->"8b47cc8a-57a8-4e0b-a7e6-d07858a23434"],
+Cell[45259, 1032, 247, 7, 25, "Echo",ExpressionUUID->"aab7548b-b8cc-487e-ab1c-92d6c77ce3e9"],
+Cell[45509, 1041, 131, 3, 25, "Echo",ExpressionUUID->"63f1c0f8-f320-46fb-b7c6-7799c014061e"],
+Cell[45643, 1046, 153, 3, 25, "Echo",ExpressionUUID->"d4f330d2-3914-4c16-85b2-fe9e1af1396e"],
+Cell[45799, 1051, 262, 8, 25, "Echo",ExpressionUUID->"11bdb966-1722-47e3-98e7-5e59730c4ce8"],
+Cell[46064, 1061, 4421, 81, 113, "Echo",ExpressionUUID->"fbe6ba1a-c520-4027-8c3c-57d4cd6ac2a9"],
+Cell[50488, 1144, 5478, 116, 117, "Echo",ExpressionUUID->"e0537534-8d6f-4014-bf84-fb35664c4bb5"],
+Cell[55969, 1262, 282, 9, 25, "Echo",ExpressionUUID->"b1460492-37ad-4182-a2f0-1b2471a0f83c"],
+Cell[56254, 1273, 133, 3, 25, "Echo",ExpressionUUID->"560a3e51-1340-417b-93e1-d85954bca7c7"],
+Cell[56390, 1278, 279, 9, 25, "Echo",ExpressionUUID->"e6952548-d196-4436-b969-093642651129"],
+Cell[56672, 1289, 131, 3, 25, "Echo",ExpressionUUID->"7b52a0d4-752f-45c5-acdc-35f69a5f4d6c"],
+Cell[56806, 1294, 153, 3, 25, "Echo",ExpressionUUID->"a602a0a3-6f7c-49ea-8c15-4d28ecf6d608"],
+Cell[56962, 1299, 260, 8, 25, "Echo",ExpressionUUID->"9e42a0b2-28ac-4d5a-911a-426811ee7a16"],
+Cell[57225, 1309, 3808, 72, 113, "Echo",ExpressionUUID->"c72daff9-5c46-4484-b17b-e058cfc0fd96"],
+Cell[61036, 1383, 5478, 116, 117, "Echo",ExpressionUUID->"9d4801ac-5603-4e8a-887a-4ac12b27ab58"],
+Cell[66517, 1501, 222, 7, 25, "Echo",ExpressionUUID->"8195cf43-6635-4987-a4c3-44d72f2f882e"],
+Cell[66742, 1510, 131, 3, 25, "Echo",ExpressionUUID->"6d809ed3-f16f-4138-99b6-4a56d3475916"],
+Cell[66876, 1515, 225, 7, 25, "Echo",ExpressionUUID->"16e86653-8a46-4ff1-9701-04dafaef9b2b"],
+Cell[67104, 1524, 132, 3, 25, "Echo",ExpressionUUID->"c4fbedf9-a51c-4ae2-aa42-af2e60ece615"],
+Cell[67239, 1529, 1941, 38, 113, "Echo",ExpressionUUID->"4c212862-b2eb-44a3-9986-cc85e5a038a5"]
+}, Open  ]],
+Cell[69195, 1570, 5701, 122, 37, "Output",ExpressionUUID->"98729de8-176a-4ffe-9439-603fae893d46"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[74933, 1697, 600, 16, 30, "Input",ExpressionUUID->"71b0af2b-0f67-442d-b139-6ef41f86cb0b"],
+Cell[75536, 1715, 38148, 817, 82, "Output",ExpressionUUID->"a1cc6093-28fa-4bdd-a05d-fc9d61e4317d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[113721, 2537, 580, 15, 30, "Input",ExpressionUUID->"c0bd3fdd-b3b5-4af2-a6c3-05402baca343"],
+Cell[114304, 2554, 20770, 468, 60, "Output",ExpressionUUID->"e6f6c08c-7fcd-445c-8a24-ed534a8b80c2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[135111, 3027, 641, 17, 30, "Input",ExpressionUUID->"4d3688a2-21e2-4e1e-904c-31f4215b0fec"],
+Cell[135755, 3046, 26365, 593, 60, "Output",ExpressionUUID->"ccd04ef4-9049-481a-9e94-57d9b992ed8e"]
+}, Open  ]]
+}
+]
+*)
+
