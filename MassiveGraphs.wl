@@ -11,12 +11,12 @@ BeginPackage["MassiveGraphs`",{"GraphGenerator`","HelicityVariables`"}]
 (*Messages*)
 
 
-MomentumConservation::usage ="MomentumConservation is an option for IndependentSpinStructures and UniformMassStructres specifying whether or not momentum conservation identities must be taken into account in the basis classification.\n It takes boolean values, True and False."
+MomentumConservation::usage ="MomentumConservation is an option for IndependentSpinStructures and HelicityCategoryBasis specifying whether or not momentum conservation identities must be taken into account in the basis classification.\n It takes boolean values, True and False."
 MassSquared::usage ="MassSquared is an option for IndependentSpinStructures specifying whether or not terms proportional to \!\(\*SubsuperscriptBox[\(M\),\(i\),\(2\)]\).\n It takes boolean values, True and False."
-Echos::usage ="Echos is an option for UniformMassStructres specifying whether or not to show intermediate graph-based steps in the classification of independent structures within the given helicity category and mass dimension.\n It takes boolean values, True and False."
+Echos::usage ="Echos is an option for HelicityCategoryBasis specifying whether or not to show intermediate graph-based steps in the classification of independent structures within the given helicity category and mass dimension.\n It takes boolean values, True and False."
 
-IndependentSpinStructres::usage = "IndependentSpinStructres[dim,opts][{label1,spin1,category1},{label2,helicity2},...] gives a basis of kinematically independent structures. Any spin structure, within the specified helicity category (category1,helicity2,...) and mass dimension dim can be written as a linear combination of element of this basis.\n dim must be a positive integer. \n opts are the options of the function. \n The particle configuration is given as a sequence of lists: \n \t - massive particles are given as three-element lists {label,spin,category} (spin and category are half-integers, such that -spin  \[LessEqual] category  \[LessEqual] spin and spin  \[GreaterEqual] 0). \n \t - massless particles are given as two-element lists {label,helicity} (helicity is an half-integer)."
-UniformMassStructres::usage = "UniformMassStructres[dim,opts][{label1,spin1,category1},{label2,helicity2},...] gives a list of structures, within the specified helicity category (category1,helicity2,...) and mass dimension dim, which are not related by any kinematic relation (also considering the relation mixing different helicity categories). \n opts are the options of the function. \n The particle configuration is given as a sequence of lists: \n \t - massive particles are given as three-element lists {label,spin,category} (spin and category are half-integers, such that -spin  \[LessEqual] category  \[LessEqual] spin and spin  \[GreaterEqual] 0). \n \t - massless particles are given as two-element lists {label,helicity} (helicity is an half-integer)."
+KinematicBasis::usage = "KinematicBasis[dim,opts][{label1,spin1,category1},{label2,helicity2},...] gives a basis of kinematically independent structures. Any spin structure, within the specified helicity category (category1,helicity2,...) and mass dimension dim can be written as a linear combination of element of this basis.\n dim must be a positive integer. \n opts are the options of the function. \n The particle configuration is given as a sequence of lists: \n \t - massive particles are given as three-element lists {label,spin,category} (spin and category are half-integers, such that -spin  \[LessEqual] category  \[LessEqual] spin and spin  \[GreaterEqual] 0). \n \t - massless particles are given as two-element lists {label,helicity} (helicity is an half-integer)."
+HelicityCategoryBasis::usage = "HelicityCategoryBasis[dim,opts][{label1,spin1,category1},{label2,helicity2},...] gives a list of structures, within the specified helicity category (category1,helicity2,...) and mass dimension dim, which are not related by any kinematic relation (also considering the relation mixing different helicity categories). \n opts are the options of the function. \n The particle configuration is given as a sequence of lists: \n \t - massive particles are given as three-element lists {label,spin,category} (spin and category are half-integers, such that -spin  \[LessEqual] category  \[LessEqual] spin and spin  \[GreaterEqual] 0). \n \t - massless particles are given as two-element lists {label,helicity} (helicity is an half-integer)."
 
 
 (* ::Section:: *)
@@ -34,11 +34,11 @@ Begin["`Private`"]
 (*Independent Spin Structures*)
 
 
-Options[IndependentSpinStructres] = {MomentumConservation -> True, MassSquared -> False};
+Options[KinematicBasis] = {MomentumConservation -> True, MassSquared -> False};
 
-SetAttributes[IndependentSpinStructres,ReadProtected];
+SetAttributes[KinematicBasis,ReadProtected];
 
-IndependentSpinStructres[dim_Integer, opts:OptionsPattern[]][list__?((Length[#] == 2 && IntegerQ[2*#[[2]]]) || (Length[#] == 3 && IntegerQ[2*#[[2]]] && IntegerQ[2*#[[3]]] && #[[2]] >= Abs[#[[3]]]) &)] :=
+KinematicBasis[dim_Integer, opts:OptionsPattern[]][list__?((Length[#] == 2 && IntegerQ[2*#[[2]]]) || (Length[#] == 3 && IntegerQ[2*#[[2]]] && IntegerQ[2*#[[3]]] && #[[2]] >= Abs[#[[3]]]) &)] :=
  Module[
   {
    massivespins = Table[If[Length[i] == 2(*if massless*), 0, i[[2]]], {i, {list}}],(*a list of all the spins, for massless particles is zero*)
@@ -59,12 +59,12 @@ IndependentSpinStructres[dim_Integer, opts:OptionsPattern[]][list__?((Length[#] 
   
   massivespins = SortBy[massivespins, #[[1]] &];
   
-  massivespins = #[[1]]*UniformMassStructres[dim - #[[2]], MomentumConservation->OptionValue[MomentumConservation]][Sequence @@ #[[3]]] & /@ massivespins; (*applies the algorithm with uniform mass powers*)
+  massivespins = #[[1]]*HelicityCategoryBasis[dim - #[[2]], MomentumConservation->OptionValue[MomentumConservation]][Sequence @@ #[[3]]] & /@ massivespins; (*applies the algorithm with uniform mass powers*)
   
   If[momenta - 2 >= 0 && OptionValue[MassSquared], (*if we want to consider terms proportional to M^2*)
    
    x = If[Length[#] == 2, Nothing, #[[1]]] & /@ {list};
-   (*x=Subsets[x,{1,Floor[Echo@momenta/2]}]*);
+   (*x=Subsets[x,{1,Floor[Echo@momenta/2]}];*)
    x = Map[MassTilde[#]*MassUntilde[#] &, x, {1}];
    (*x=Flatten/@GatherBy[Times@@@x,Length[#]&]//Echo;*)
    x = Map[Times @@ Thread[Power[x, #]] &, Table[Flatten[Permutations /@ (PadRight[#, Length@x] & /@ IntegerPartitions[i, Length@x]), 1], {i, Floor[momenta/2]}], {2}];
@@ -77,7 +77,7 @@ IndependentSpinStructres[dim_Integer, opts:OptionsPattern[]][list__?((Length[#] 
         Tuples /@
          (Transpose@{
             x,
-            IndependentSpinStructres[dim - #, opts][list] & /@ (2*Range@Floor[momenta/2])
+            KinematicBasis[dim - #, opts][list] & /@ (2*Range@Floor[momenta/2])
             }),
         1])
      ]
@@ -92,11 +92,11 @@ IndependentSpinStructres[dim_Integer, opts:OptionsPattern[]][list__?((Length[#] 
 (*Uniform Mass Structures*)
 
 
-Options[UniformMassStructres] = {MomentumConservation -> True, Echos -> False};
+Options[HelicityCategoryBasis] = {MomentumConservation -> True, Echos -> False};
 
-SetAttributes[UniformMassStructres,ReadProtected];
+SetAttributes[HelicityCategoryBasis,ReadProtected];
 
-UniformMassStructres[dim_Integer, OptionsPattern[]][list__] :=
+HelicityCategoryBasis[dim_Integer, OptionsPattern[]][list__] :=
  Module[{labels = Part[#, 1] & /@ {list}, spins = Delete[#, 1] & /@ {list}, angles, squares, structures},
   
   {angles, squares} =
