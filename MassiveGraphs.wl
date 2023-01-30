@@ -130,7 +130,7 @@ HelicityCategoryBasis[dim_Integer, OptionsPattern[]][list__] :=
 (*Auxiliary functions*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Spin Structures*)
 
 
@@ -387,7 +387,7 @@ formfactor[[1,1,m]]!=0&&formfactor[[2,1,2]]!=0&&formfactor[[2,m-1,m]]!=0&&
 )
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*From Matrix to Spinors structures*)
 
 
@@ -440,12 +440,12 @@ If[PlanarMomentumConservation[{newangles,newsquares},positions,spins],Return[Not
 
 Return[(*{newangles,newsquares}*)
 Times@@((AngleB[
-If[types[[#[[1,1]]]]==1,SpinorML[newlabels[[#[[1,1]]]]],If[types[[#[[1,1]]]]==2,SpinorMV[][newlabels[[#[[1,1]]]]],SpinorMV[$up][newlabels[[#[[1,1]]]],StringJoin["I",ToString[newlabels[[#[[1,1]]]]],ToString[#[[1,1]]]]]]],
-If[types[[#[[1,2]]]]==1,SpinorML[newlabels[[#[[1,2]]]]],If[types[[#[[1,2]]]]==2,SpinorMV[][newlabels[[#[[1,2]]]]],SpinorMV[$up][newlabels[[#[[1,2]]]],StringJoin["I",ToString[newlabels[[#[[1,2]]]]],ToString[#[[1,2]]]]]]]]^#[[2]]
+If[types[[#[[1,1]]]]==1,SpinorUndottedML[][newlabels[[#[[1,1]]]]],If[types[[#[[1,1]]]]==2,SpinorUndottedMV[][newlabels[[#[[1,1]]]]],SpinorUndottedMV[$up][newlabels[[#[[1,1]]]],StringJoin["I",ToString[newlabels[[#[[1,1]]]]],ToString[#[[1,1]]]]]]],
+If[types[[#[[1,2]]]]==1,SpinorUndottedML[][newlabels[[#[[1,2]]]]],If[types[[#[[1,2]]]]==2,SpinorUndottedMV[][newlabels[[#[[1,2]]]]],SpinorUndottedMV[$up][newlabels[[#[[1,2]]]],StringJoin["I",ToString[newlabels[[#[[1,2]]]]],ToString[#[[1,2]]]]]]]]^#[[2]]
 )&/@Delete[ArrayRules[newangles],-1])*
 Times@@((SquareB[
-If[types[[#[[1,1]]]]==1,SpinorML[newlabels[[#[[1,1]]]]],If[types[[#[[1,1]]]]==2,SpinorMV[][newlabels[[#[[1,1]]]]],SpinorMV[$down][newlabels[[#[[1,1]]]],StringJoin["I",ToString[newlabels[[#[[1,1]]]]],ToString[#[[1,1]]]]]]],
-If[types[[#[[1,2]]]]==1,SpinorML[newlabels[[#[[1,2]]]]],If[types[[#[[1,2]]]]==2,SpinorMV[][newlabels[[#[[1,2]]]]],SpinorMV[$down][newlabels[[#[[1,2]]]],StringJoin["I",ToString[newlabels[[#[[1,2]]]]],ToString[#[[1,2]]]]]]]]^#[[2]]
+If[types[[#[[1,1]]]]==1,SpinorDottedML[][newlabels[[#[[1,1]]]]],If[types[[#[[1,1]]]]==2,SpinorDottedMV[][newlabels[[#[[1,1]]]]],SpinorDottedMV[$down][newlabels[[#[[1,1]]]],StringJoin["I",ToString[newlabels[[#[[1,1]]]]],ToString[#[[1,1]]]]]]],
+If[types[[#[[1,2]]]]==1,SpinorDottedML[][newlabels[[#[[1,2]]]]],If[types[[#[[1,2]]]]==2,SpinorDottedMV[][newlabels[[#[[1,2]]]]],SpinorDottedMV[$down][newlabels[[#[[1,2]]]],StringJoin["I",ToString[newlabels[[#[[1,2]]]]],ToString[#[[1,2]]]]]]]]^#[[2]]
 )&/@Delete[ArrayRules[newsquares],-1])
 ]
 
@@ -457,7 +457,7 @@ TrueQ@OptionValue[MomentumConservation],
 If[PlanarMomentumConservation[{adjAngle,adjSquare},FoldPairList[TakeDrop,Range@Length[Flatten@#],Length/@#],spins]&@(If[#[[3]]==2,ConstantArray[#[[1]],#[[2]]+1],{#[[1]]}]&/@Transpose[{labels,momenta,spins}]),Return[Nothing]]
 ];
 
-Times@@(AngleB[SpinorML[labels[[#[[1,1]]]]],SpinorML[labels[[#[[1,2]]]]]]^#[[2]]&/@Transpose[{adjAngle["NonzeroPositions"],adjAngle["NonzeroValues"]}])*Times@@(SquareB[SpinorML[labels[[#[[1,1]]]]],SpinorML[labels[[#[[1,2]]]]]]^#[[2]]&/@Transpose[{adjSquare["NonzeroPositions"],adjSquare["NonzeroValues"]}])
+Times@@(AngleB[SpinorUndottedML[][labels[[#[[1,1]]]]],SpinorUndottedML[][labels[[#[[1,2]]]]]]^#[[2]]&/@Transpose[{adjAngle["NonzeroPositions"],adjAngle["NonzeroValues"]}])*Times@@(SquareB[SpinorDottedML[][labels[[#[[1,1]]]]],SpinorDottedML[][labels[[#[[1,2]]]]]]^#[[2]]&/@Transpose[{adjSquare["NonzeroPositions"],adjSquare["NonzeroValues"]}])
 ]
 
 
