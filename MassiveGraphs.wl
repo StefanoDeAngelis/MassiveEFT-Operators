@@ -4,7 +4,7 @@
 (*Graphs and massive contact terms*)
 
 
-BeginPackage["MassiveGraphs`",{"GraphGenerator`","HelicityVariables`"}]
+BeginPackage["MassiveGraphs`",{"GraphGenerator`","SpinorHelicity`","HelicityVariables`"}]
 
 
 (* ::Section:: *)
@@ -130,7 +130,7 @@ HelicityCategoryBasis[dim_Integer, OptionsPattern[]][list__] :=
 (*Auxiliary functions*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Spin Structures*)
 
 
@@ -387,7 +387,7 @@ formfactor[[1,1,m]]!=0&&formfactor[[2,1,2]]!=0&&formfactor[[2,m-1,m]]!=0&&
 )
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*From Matrix to Spinors structures*)
 
 
@@ -439,6 +439,7 @@ If[PlanarMomentumConservation[{newangles,newsquares},positions,spins],Return[Not
 ];*)
 
 Return[(*{newangles,newsquares}*)
+ContractLittleGroup[
 Times@@((AngleB[
 If[types[[#[[1,1]]]]==1,SpinorUndottedML[][newlabels[[#[[1,1]]]]],If[types[[#[[1,1]]]]==2,SpinorUndottedMV[][newlabels[[#[[1,1]]]]],SpinorUndottedMV[$up][newlabels[[#[[1,1]]]],StringJoin["I",ToString[newlabels[[#[[1,1]]]]],ToString[#[[1,1]]]]]]],
 If[types[[#[[1,2]]]]==1,SpinorUndottedML[][newlabels[[#[[1,2]]]]],If[types[[#[[1,2]]]]==2,SpinorUndottedMV[][newlabels[[#[[1,2]]]]],SpinorUndottedMV[$up][newlabels[[#[[1,2]]]],StringJoin["I",ToString[newlabels[[#[[1,2]]]]],ToString[#[[1,2]]]]]]]]^#[[2]]
@@ -447,6 +448,7 @@ Times@@((SquareB[
 If[types[[#[[1,1]]]]==1,SpinorDottedML[][newlabels[[#[[1,1]]]]],If[types[[#[[1,1]]]]==2,SpinorDottedMV[][newlabels[[#[[1,1]]]]],SpinorDottedMV[$down][newlabels[[#[[1,1]]]],StringJoin["I",ToString[newlabels[[#[[1,1]]]]],ToString[#[[1,1]]]]]]],
 If[types[[#[[1,2]]]]==1,SpinorDottedML[][newlabels[[#[[1,2]]]]],If[types[[#[[1,2]]]]==2,SpinorDottedMV[][newlabels[[#[[1,2]]]]],SpinorDottedMV[$down][newlabels[[#[[1,2]]]],StringJoin["I",ToString[newlabels[[#[[1,2]]]]],ToString[#[[1,2]]]]]]]]^#[[2]]
 )&/@Delete[ArrayRules[newsquares],-1])
+]
 ]
 
 ]
