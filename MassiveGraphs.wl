@@ -64,9 +64,9 @@ KinematicBasis[dim_Integer, opts:OptionsPattern[]][list__?((Length[#] == 2 && In
   If[momenta - 2 >= 0 && OptionValue[MassSquared], (*if we want to consider terms proportional to M^2*)
    
    x = If[Length[#] == 2, Nothing, #[[1]]] & /@ {list};
-   (*x=Subsets[x,{1,Floor[Echo@momenta/2]}];*)
+   
    x = Map[MassTilde[#]*MassUntilde[#] &, x, {1}];
-   (*x=Flatten/@GatherBy[Times@@@x,Length[#]&]//Echo;*)
+   
    x = Map[Times @@ Thread[Power[x, #]] &, Table[Flatten[Permutations /@ (PadRight[#, Length@x] & /@ IntegerPartitions[i, Length@x]), 1], {i, Floor[momenta/2]}], {2}];
    
    massivespins =
